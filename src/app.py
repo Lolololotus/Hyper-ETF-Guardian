@@ -9,7 +9,11 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="expanded")
 
 # --- AI Intelligence Layer ---
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+try:
+    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+except Exception:
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
