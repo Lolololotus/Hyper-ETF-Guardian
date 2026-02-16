@@ -10,7 +10,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__)))
 from monitor import calculate_loss_rate
 
 # Final Mastery Configuration
-st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="collapsed")
 
 # --- AI Intelligence Layer ---
 try:
@@ -35,60 +35,8 @@ def get_ai_intel(prompt):
 # --- Absolute Physical Constraint Mastery: [v6.5 FULL LOCALIZATION] ---
 def m(h): return h.replace("\n", "").strip()
 
-st.markdown(m(f"""
-<style>
-/* Global Lockdown & Typography */
-.stApp {{background-color: #0A0E14 !important; color: #FFFFFF !important;}}
-h1,h2,h3,h4,h5,h6,p,span,label,div,li {{color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.5px !important;}}
-
-/* Master Box: Final Space Liberation v6.4 (Legacy) / v6.5 Refined */
-.v6-box {{background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 80px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); overflow: hidden !important;}}
-.v6-title {{font-size: 16px; font-weight: 900; margin-bottom: 25px; color: #FFFFFF !important; border-left: 5px solid #39FF14; padding-left: 15px; text-transform: uppercase; white-space: nowrap !important;}}
-
-/* Row Protocol: Physical No-Wrap */
-.v6-row {{display: flex; justify-content: space-between; align-items: center; width: 100%; height: 44px; white-space: nowrap !important; overflow: hidden !important;}}
-.v6-item {{display: flex; align-items: center; white-space: nowrap !important; overflow: hidden !important; height: 36px;}}
-.v6-ellipsis {{overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;}}
-
-/* Button Force: v6.5 Localization Optimization */
-.stButton>button {{background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 34px !important; border-radius: 6px !important; font-size: 10px !important; letter-spacing: -0.8px !important; transition: all 0.1s ease; width: 100% !important; min-width: 90px !important; padding: 0 8px !important; white-space: nowrap !important; overflow: visible !important;}}
-.stButton>button:hover {{background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; opacity: 0.9;}}
-
-/* Upcoming Terminal */
-.cal-header {{font-size: 16px; font-weight: 900; color: #39FF14 !important; border-bottom: 2px solid #39FF14; padding: 12px 0; margin-bottom: 0px;}}
-.cal-item {{background: #161B22; border: 1px solid #30363D; border-radius: 10px; padding: 22px; margin-top: 15px; border-left: 5px solid #FFFF33; min-height: 190px; overflow: hidden;}}
-
-/* Risk Panel */
-.risk-box {{background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 20px; border-radius: 10px; margin-bottom: 35px; color: #FF3131 !important; font-weight: 900; font-size: 14px;}}
-
 #MainMenu, footer, .stDeployButton {display: none !important;}
 div.block-container {padding-top: 2rem !important;}
-
-/* --- v6.6 Sidebar Dark Mode Patch --- */
-[data-testid="stSidebar"] {
-    background-color: #0E1117 !important;
-    border-right: 1px solid #30363D !important;
-}
-[data-testid="stSidebar"] .stMarkdown,
-[data-testid="stSidebar"] .stCheckbox label,
-[data-testid="stSidebar"] p {
-    color: #E0E0E0 !important;
-}
-[data-testid="stSidebar"] .stCheckbox input:checked + div {
-    border-color: #00FF00 !important;
-    background-color: rgba(0, 255, 0, 0.1) !important;
-}
-[data-testid="stSidebar"] .stButton > button {
-    background-color: #21262D !important;
-    color: #FF4B4B !important;
-    border: 1px solid #FF4B4B !important;
-    width: 100% !important;
-    font-weight: bold !important;
-}
-[data-testid="stSidebar"] .stButton > button:hover {
-    background-color: #FF4B4B !important;
-    color: #FFFFFF !important;
-}
 </style>
 """), unsafe_allow_html=True)
 
@@ -130,17 +78,8 @@ met[3].markdown(m(m_b("상장 예정", f"{len(upcs)} 유닛", "#FFFF33")), unsaf
 
 st.divider()
 
-# --- Sidebar ---
-with st.sidebar:
-    st.header("🛠️ 시스템 관제")
-    isrs = ["KODEX", "TIGER", "KBSTAR", "ACE", "SOL"]
-    s_is = [i for i in isrs if st.checkbox(i, key=f"s_{i}")]
-    f_is = s_is if s_is else isrs
-    pool = [e for e in etfs if any(i in e['issuer'] for i in f_is)]
-    if not pool: pool = etfs[:50]
-    if st.button("데이터 초기화"): s_j('data/user_portfolio.json', []); st.rerun()
-
 # --- Strategic Dashboard (Tabs) ---
+pool = etfs
 tabs = st.tabs(["📊 시장 감시", "📅 상장 일정", "🚨 위험 통제"])
 
 # Tab 1: Market Watch (5-Stage Master Ratio Protocol)
