@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="expanded")
 
 # --- AI Intelligence Layer ---
-GEMINI_API_KEY = "AIzaSyDfmWkvWuty0BjkhBainobKonjTL6She78"
+GEMINI_API_KEY = "AIzaSyAM7V3Pajf00lBGK6ZDSBfKFya8aKENkm0"
 genai.configure(api_key=GEMINI_API_KEY)
 
 def get_ai_intel(prompt):
