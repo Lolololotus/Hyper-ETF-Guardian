@@ -1,32 +1,5 @@
 [
   {
-    "symbol": "500210",
-    "name": "TIGER 온디바이스 AI 인프라",
-    "purchase_price": 0,
-    "status": "대기",
-    "listing_date": "2026-02-18",
-    "loss": 0.0,
-    "cur": 10000.0
-  },
-  {
-    "symbol": "500510",
-    "name": "KBSTAR KRX 밸류업 지수",
-    "purchase_price": 0,
-    "status": "대기",
-    "listing_date": "2026-02-24",
-    "loss": 0.0,
-    "cur": 10000.0
-  },
-  {
-    "symbol": "500420",
-    "name": "ACE 글로벌 빅테크 TOP7",
-    "purchase_price": 0,
-    "status": "대기",
-    "listing_date": "2026-02-20",
-    "loss": 0.0,
-    "cur": 10000.0
-  },
-  {
     "symbol": "069500",
     "name": "KODEX 200",
     "purchase_price": 81860,
