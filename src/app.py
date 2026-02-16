@@ -1,29 +1,10 @@
 import streamlit as st
 import json, os, sys
-import google.generativeai as genai
-from datetime import datetime
 
-# 1. [System] 레이아웃 및 보안 락다운 (v11.0 Final Submission Master)
+# 1. [System] 레이아웃 및 보안 절대 락다운 (v11.5 Final Singularity)
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="collapsed")
 
-# --- AI Intelligence Layer (Absolute Sovereign) ---
-try:
-    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
-except:
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
-if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
-
-def get_ai_intel(prompt):
-    if not GEMINI_API_KEY: return "[위험: 5.0 / 키 미설정]"
-    try:
-        model = genai.GenerativeModel('gemini-2.0-flash')
-        response = model.generate_content(f"Expert financial response max 10 words. Mention coordination by weekly returns: {prompt}")
-        return response.text.replace("\n", " ").strip() if response.text else "[대기 중]"
-    except: return "[타임아웃]"
-
-# 2. [UI/UX] 불사신 CSS (v11.0 버튼 블랙아웃 & 게이지 & BETA 공지)
+# 2. [UI/UX] 불사신 CSS (버튼 블랙아웃 & 게이지 & BETA 공지)
 st.markdown("""
     <style>
     /* 1. 사이드바 및 불필요 요소 완전 소멸 */
@@ -31,7 +12,7 @@ st.markdown("""
     .stApp { background-color: #0A0E14 !important; color: #FFFFFF !important; }
     .block-container { padding: 1.5rem 3.5rem !important; max-width: 98% !important; }
     
-    /* 2. [v11.0] 모든 버튼 시각적 암전 강제 고정 (Blackout Armor Lock) */
+    /* 2. [v11.5] 모든 버튼 시각적 암전 강제 고정 (Blackout Lockdown) */
     button[kind="secondary"], button[kind="primary"], .stButton>button, div[data-testid="stPopover"] button { 
         background-color: #0E1117 !important; 
         color: #39FF14 !important; 
@@ -39,26 +20,19 @@ st.markdown("""
         font-weight: 900 !important; 
         width: 100% !important;
         height: 38px !important; 
+        transition: 0.1s !important;
         font-size: 11px !important;
         border-radius: 6px !important;
-        transition: 0.2s !important;
         box-shadow: none !important;
-        text-transform: none !important;
     }
     button:hover { background-color: #39FF14 !important; color: #000 !important; box-shadow: 0 0 15px #39FF14 !important; }
     
-    /* 3. 대시보드 및 지표 스타일 */
     .v11-box { background-color: #161B22; border: 1px solid #30363D; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
     .gauge-bg { width: 100%; background: #21262D; border-radius: 10px; height: 10px; margin: 10px 0; overflow: hidden; }
-    .gauge-fill { height: 100%; border-radius: 10px; transition: width 0.8s ease; }
+    .gauge-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+    .beta-notice { background: rgba(57, 255, 20, 0.05); border: 1px solid #39FF14; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 11px; color: #39FF14; line-height: 1.5; }
     
-    /* 4. BETA 알림 박스 */
-    .beta-notice { 
-        background: rgba(57, 255, 20, 0.05); border: 1px solid #39FF14; 
-        padding: 12px; border-radius: 8px; margin-bottom: 20px; 
-        font-size: 11px; color: #39FF14; line-height: 1.5; 
-    }
-
+    /* 팝오버 배경 고정 */
     div[data-testid="stPopoverContent"] {
         background-color: #161B22 !important;
         border: 1px solid #30363D !important;
@@ -67,44 +41,38 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. [Data] 데이터 엔진 (반응성 강화)
+# 3. [Data] 데이터 엔진 (Purge & Rebuild)
 P_FILE, E_FILE, U_FILE = 'data/user_portfolio.json', 'data/etf_list.json', 'data/upcoming_etf.json'
 
-def load_data(p):
+def l_j(p):
     if not os.path.exists(p): return []
     try:
         with open(p,'r',encoding='utf-8') as f: return json.load(f)
     except: return []
 
-def save_p(d):
+def s_j(d):
     with open(P_FILE,'w',encoding='utf-8') as f: json.dump(d, f, indent=2, ensure_ascii=False)
 
 def handle_action(itm, action, qty=0):
-    p = load_data(P_FILE)
+    p = l_j(P_FILE)
+    sym = itm.get('symbol') or itm.get('ticker')
     if action == "RESERVE":
-        if not any(x.get('symbol') == itm.get('ticker') for x in p):
-            p.append({"symbol": itm.get('ticker'), "name": itm.get('name'), "issuer": itm.get('issuer', 'HYPER'), "purchase_price": 10000, "current_price": 10000, "status": "예약 중", "qty": qty})
-            st.toast("🚨 구매 예약이 완료되었습니다.")
+        if not any(x.get('symbol') == sym for x in p):
+            p.append({"symbol": sym, "name": itm.get('name'), "issuer": itm.get('issuer', 'HYPER'), "purchase_price": 10000, "current_price": 10000, "status": "예약 중", "qty": qty})
+            st.toast("🚨 구매 예약이 확정되었습니다.")
     elif action == "CANCEL":
-        target = itm.get('symbol') or itm.get('ticker')
-        p = [x for x in p if x.get('symbol') != target]
+        p = [x for x in p if x.get('symbol') != sym]
         st.toast("🗑️ 구매 예약이 취소되었습니다.")
     elif action == "TOGGLE":
-        target = itm.get('symbol')
-        is_t = any(x.get('symbol') == target for x in p)
-        if is_t: p = [x for x in p if x.get('symbol') != target]
-        else: p.append({"symbol": itm.get('symbol'), "name": itm.get('name'), "issuer": itm.get('issuer', 'HYPER'), "purchase_price": itm.get('price_at_listing', 10000), "current_price": itm.get('price_at_listing', 10000), "status": "라이브", "qty": 0})
-    save_p(p)
-    st.rerun() # [v11.0] 물리적 인터랙션 완결 (st.rerun 기반 팝오버 즉각 폐쇄)
+        if any(x.get('symbol') == sym for x in p): p = [x for x in p if x.get('symbol') != sym]
+        else: p.append({"symbol": sym, "name": itm.get('name'), "issuer": itm.get('issuer', 'HYPER'), "purchase_price": itm.get('price_at_listing', 10000), "current_price": itm.get('price_at_listing', 10000), "status": "라이브", "qty": 0})
+    s_j(p); st.rerun() # [v11.5] 반응성 및 팝오버 폐쇄 완결
 
-# 4. [Render] 대시보드 조감
-portfolio = load_data(P_FILE)
-etfs = load_data(E_FILE)
-upcs = sorted(load_data(U_FILE), key=lambda x: x.get('listing_date', '9999-12-31'))
+# 4. [Render] 대시보드 메트릭
+portfolio = l_j(P_FILE)
+etfs = l_j(E_FILE)
+st.markdown("<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v11.5 최종 무결성 마스터]</span></h2>", unsafe_allow_html=True)
 
-st.markdown("<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v11.0 최종 제출 마스터]</span></h2>", unsafe_allow_html=True)
-
-# 상단 메트릭 보드 (Atomic Logic)
 m1, m2, m3, m4 = st.columns(4)
 avg_def = 0
 if portfolio:
@@ -115,14 +83,13 @@ def m_c(l, v, c): return f'<div style="background:#161B22;border:1px solid #3036
 m1.markdown(m_c("추적 자산", f"{len(portfolio)} 유닛", "#39FF14"), unsafe_allow_html=True)
 m2.markdown(m_c("평균 방어력", f"{avg_def:+.2f}%", "#39FF14" if avg_def >= -5 else "#FF3131"), unsafe_allow_html=True)
 m3.markdown(m_c("방어선 돌파", "0 유닛", "#39FF14"), unsafe_allow_html=True)
-m4.markdown(m_c("상장 예정", f"{len(upcs)} 유닛", "#FFD700"), unsafe_allow_html=True)
+m4.markdown(m_c("상장 예정", f"{len(l_j(U_FILE))} 유닛", "#FFD700"), unsafe_allow_html=True)
 
-ai_rep = get_ai_intel(f"유닛: {len(portfolio)}. 일주일 수익률 기반 정렬 및 v11.0 마스터 빌드 가동.")
-st.markdown(f'<div style="background:rgba(255,49,49,0.05); border:1px solid #FF3131; padding:15px; border-radius:10px; margin-top:20px; margin-bottom:25px; color:#FF3131; font-weight:900;">🚨 AI Intel: {ai_rep} </div>', unsafe_allow_html=True)
+st.divider()
 
 tabs = st.tabs(["📊 시장 감시", "📅 상장 일정", "🚨 위험 통제"])
 
-with tabs[0]: # Market Watch (강제 10개 패딩)
+with tabs[0]: # Market Watch (무조건 10개 인양)
     st.markdown("<p style='font-size:11px;color:#8B949E;font-weight:700;'>정렬 기준 : 최근 일주일간 수익률 높은 순</p>", unsafe_allow_html=True)
     themes = [{"n": "AI/반도체", "k": ["AI", "반도체"]}, {"n": "미국 빅테크", "k": ["미국", "빅테크"]}, {"n": "배당/밸류업", "k": ["배당", "밸류"]}, {"n": "국내 지수", "k": ["200", "코스피"]}, {"n": "글로벌 액티브", "k": ["글로벌"]}, {"n": "기술/혁신", "k": ["기술", "혁신"]}]
     rcs = [st.columns(3), st.columns(3)]
@@ -135,7 +102,6 @@ with tabs[0]: # Market Watch (강제 10개 패딩)
             for e in etfs:
                 if len(filtered) >= 10: break
                 if e.get('symbol') not in seen: filtered.append(e); seen.add(e.get('symbol'))
-            
             for r, itm in enumerate(filtered[:10]):
                 is_t = any(p.get('symbol') == itm.get('symbol') for p in portfolio)
                 cr = st.columns([8, 2])
@@ -144,8 +110,9 @@ with tabs[0]: # Market Watch (강제 10개 패딩)
                     if st.button("해제" if is_t else "추적", key=f"tk_{idx}_{itm.get('symbol')}"): handle_action(itm, "TOGGLE")
             st.markdown("</div>", unsafe_allow_html=True)
 
-with tabs[1]: # Upcoming (v11.0 완벽 인터랙션)
-    st.markdown("""<div class="beta-notice"><b>beta : 현재 버전은 BETA 모드입니다.</b> 추후 정식 업데이트를 통해 상장 즉시 <b>'0.1초 자동 매수'</b>하는 풀-오토 시스템을 제공합니다.</div>""", unsafe_allow_html=True)
+with tabs[1]: # Upcoming (인터랙션 완결)
+    st.markdown("""<div class="beta-notice"><b>beta:</b> 추후 상장 즉시 <b>'0.1초 자동 매수'</b>하는 풀-오토 시스템을 제공합니다.</div>""", unsafe_allow_html=True)
+    upcs = sorted(l_j(U_FILE), key=lambda x: x.get('listing_date', '9999-12-31'))
     cols = st.columns(4)
     for i, itm in enumerate(upcs):
         is_res = any(p.get('symbol') == itm.get('ticker') and p.get('status') == "예약 중" for p in portfolio)
@@ -158,11 +125,11 @@ with tabs[1]: # Upcoming (v11.0 완벽 인터랙션)
                     if st.button("예, 예약을 취소합니다", key=f"can_{itm.get('ticker')}"): handle_action(itm, "CANCEL")
             else:
                 with st.popover("상장 예약 ∨", use_container_width=True):
-                    qty = st.number_input("예약 수량(주)", 1, 1000, 10, key=f"q_{itm.get('ticker')}")
+                    qty = st.number_input("수량(주)", 1, 1000, 10, key=f"q_{itm.get('ticker')}")
                     if st.button("구매를 예약 하시겠습니까?", key=f"conf_{itm.get('ticker')}"): handle_action(itm, "RESERVE", qty)
 
 with tabs[2]: # Risk Control (게이지 복원)
-    st.markdown("""<div class="beta-notice" style="border-color:#FF3131;color:#FF3131;background:rgba(255,49,49,0.05);"><b>beta : 현재 버전은 BETA 모드입니다.</b> 추후 원칙(-10.0%) 이탈 즉시 <b>'자동 매도'</b>하는 방어 시스템을 제공합니다.</div>""", unsafe_allow_html=True)
+    st.markdown("""<div class="beta-notice" style="border-color:#FF3131;color:#FF3131;background:rgba(255,49,49,0.05);"><b>beta:</b> 원칙(-10.0%) 이탈 즉시 <b>'자동 매도'</b>하는 방어 시스템을 제공합니다.</div>""", unsafe_allow_html=True)
     c1, c2 = st.columns(2)
     with c1:
         st.markdown("### 🛰️ 실시간 추적 자산 (게이지 가동)")
@@ -196,4 +163,4 @@ with tabs[2]: # Risk Control (게이지 복원)
             """, unsafe_allow_html=True)
             if st.button("예약 취소", key=f"risk_can_{p.get('symbol')}"): handle_action(p, "CANCEL")
 
-st.markdown(f"<div style='text-align:center;margin-top:50px;font-size:10px;color:#484F58;'>Hyper ETF Guardian v11.0 Final Submission | 19h Miracle Deployment</div>", unsafe_allow_html=True)
+st.markdown(f"<div style='text-align:center;margin-top:50px;font-size:10px;color:#484F58;'>Hyper ETF Guardian v11.5 Final Submission Master | 19h Miracle Deployment</div>", unsafe_allow_html=True)
