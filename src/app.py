@@ -18,15 +18,15 @@ if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
 def get_ai_intel(prompt):
-    if not GEMINI_API_KEY: return "[R: 5.0 / C: Key Missing / R: Check Config]"
+    if not GEMINI_API_KEY: return "[위험: 5.0 / 원인: 키 미설정 / 권고: 설정 확인]"
     try:
         model = genai.GenerativeModel('gemini-2.0-flash')
         # Optimized for Vercel 10s Timeout: Zero-Latency Prompting
         sys_p = "Expert. Response: [R:X/C:Y/R:Z]. Max 15 words."
         response = model.generate_content(f"{sys_p}\n\n{prompt}")
-        if not response or not response.text: return "[R: 5.0 / C: Standby / R: Manual Check]"
+        if not response or not response.text: return "[위험: 5.0 / 원인: 대기 중 / 권고: 수동 확인]"
         return response.text.replace("\n", " ").strip()
-    except Exception: return "[R: 5.0 / C: Timeout/Error / R: Manual Check]"
+    except Exception: return "[위험: 5.0 / 원인: 타임아웃 / 권고: 수동 확인]"
 
 # --- Absolute Physical Constraint Mastery: [v6.5 FULL LOCALIZATION] ---
 def m(h): return h.replace("\n", "").strip()
@@ -116,12 +116,12 @@ tabs = st.tabs(["📊 시장 감시 (Market Watch)", "📅 상장 일정 (Upcomi
 # Tab 1: Market Watch (5-Stage Master Ratio Protocol)
 with tabs[0]:
     themes = {
-        "AI & Semiconductor Strategy": ["AI", "반도체", "NVIDIA", "HBM"],
-        "USA Big Tech Strategy": ["미국", "빅테크", "나스닥", "S&P"],
-        "ValueUp / Dividend Strategy": ["밸류업", "저PBR", "배당", "인컴"],
-        "Emerging Tech Strategy": ["양자", "우주", "에너지", "바이오"],
-        "Global Infrastructure": ["인프라", "원자력", "에너지"],
-        "Healthcare Strategy": ["바이오", "제약", "헬스케어"]
+        "AI 및 반도체 핵심 전략": ["AI", "반도체", "NVIDIA", "HBM"],
+        "미국 빅테크 핵심 자산": ["미국", "빅테크", "나스닥", "S&P"],
+        "밸류업 및 배당 가치 전략": ["밸류업", "저PBR", "배당", "인컴"],
+        "미래 기술 혁신 전략": ["양자", "우주", "에너지", "바이오"],
+        "글로벌 인프라 및 에너지": ["인프라", "원자력", "에너지"],
+        "바이오 및 헬스케어 전략": ["바이오", "제약", "헬스케어"]
     }
     th_l = list(themes.items())
     for i in range(0, len(th_l), 3):
@@ -162,7 +162,7 @@ with tabs[0]:
 # Tab 2: Upcoming (5-Section Terminal)
 with tabs[1]:
     m_st = datetime.now() - timedelta(days=datetime.now().weekday())
-    w_d = ["월요일 (MON)", "화요일 (TUE)", "수요일 (WED)", "목요일 (THU)", "금요일 (FRI)"]; u_g = st.columns(5)
+    w_d = ["월요일", "화요일", "수요일", "목요일", "금요일"]; u_g = st.columns(5)
     for k in range(5):
         dv = (m_st + timedelta(days=k)).strftime("%Y-%m-%d")
         with u_g[k]:
