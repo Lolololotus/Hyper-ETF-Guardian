@@ -32,13 +32,37 @@ def get_ai_intel(prompt):
         return response.text.replace("\n", " ").strip()
     except Exception: return "[위험: 5.0 / 원인: 타임아웃 / 권고: 수동 확인]"
 
-# --- Absolute Physical Constraint Mastery: [v6.5 FULL LOCALIZATION] ---
-def m(h): return h.replace("\n", "").strip()
+# --- v6.7 Emergency Syntax Fix & UI Purge ---
+st.markdown("""
+    <style>
+    /* 사이드바 및 필터 메뉴 원천 차단 */
+    [data-testid="stSidebar"] {display: none !important;}
+    [data-testid="stSidebarNav"] {display: none !important;}
+    
+    /* Global Lockdown & Typography */
+    .stApp {background-color: #0A0E14 !important; color: #FFFFFF !important;}
+    h1,h2,h3,h4,h5,h6,p,span,label,div,li {color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.5px !important;}
 
-#MainMenu, footer, .stDeployButton {display: none !important;}
-div.block-container {padding-top: 2rem !important;}
-</style>
-"""), unsafe_allow_html=True)
+    /* 메인 컨테이너 여백 최적화 (Maximized Space) */
+    .block-container {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 95% !important;
+    }
+
+    /* Master Box & Grid Layout */
+    .v6-box {background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 80px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); overflow: hidden !important;}
+    .v6-title {font-size: 16px; font-weight: 900; margin-bottom: 25px; color: #FFFFFF !important; border-left: 5px solid #39FF14; padding-left: 15px; text-transform: uppercase; white-space: nowrap !important;}
+    .v6-row {display: flex; justify-content: space-between; align-items: center; width: 100%; height: 44px; white-space: nowrap !important; overflow: hidden !important;}
+    .v6-item {display: flex; align-items: center; white-space: nowrap !important; overflow: hidden !important; height: 36px;}
+    
+    /* Button Force: v6.5+ Optimization */
+    .stButton>button {background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 34px !important; border-radius: 6px !important; font-size: 10px !important; letter-spacing: -0.8px !important; transition: all 0.1s ease; width: 100% !important; min-width: 90px !important; padding: 0 8px !important; white-space: nowrap !important; overflow: visible !important;}
+    .stButton>button:hover {background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; opacity: 0.9;}
+
+    #MainMenu, footer, .stDeployButton {display: none !important;}
+    </style>
+""", unsafe_allow_html=True)
 
 # --- Data Engine ---
 def l_j(p):
