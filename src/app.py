@@ -35,14 +35,14 @@ def get_ai_intel(prompt):
 # --- v6.7 Emergency Syntax Fix & UI Purge ---
 st.markdown("""
     <style>
-    /* 사이드바 및 필터 메뉴 원천 차단 */
-    [data-testid="stSidebar"] {display: none !important;}
-    [data-testid="stSidebarNav"] {display: none !important;}
+    /* 사이드바 원천 차단 */
+    [data-testid="stSidebar"] { display: none !important; }
+    [data-testid="stSidebarNav"] { display: none !important; }
     
-    /* Global Lockdown & Typography */
-    .stApp {background-color: #0A0E14 !important; color: #FFFFFF !important;}
-    h1,h2,h3,h4,h5,h6,p,span,label,div,li {color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.5px !important;}
-
+    /* 글로벌 락다운 */
+    .stApp { background-color: #0A0E14 !important; color: #FFFFFF !important; }
+    h1,h2,h3,h4,h5,h6,p,span,label,div,li { color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.5px !important; }
+    
     /* 메인 컨테이너 여백 최적화 (Maximized Space) */
     .block-container {
         padding-top: 2rem !important;
@@ -50,17 +50,17 @@ st.markdown("""
         max-width: 95% !important;
     }
 
-    /* Master Box & Grid Layout */
-    .v6-box {background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 80px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); overflow: hidden !important;}
-    .v6-title {font-size: 16px; font-weight: 900; margin-bottom: 25px; color: #FFFFFF !important; border-left: 5px solid #39FF14; padding-left: 15px; text-transform: uppercase; white-space: nowrap !important;}
-    .v6-row {display: flex; justify-content: space-between; align-items: center; width: 100%; height: 44px; white-space: nowrap !important; overflow: hidden !important;}
-    .v6-item {display: flex; align-items: center; white-space: nowrap !important; overflow: hidden !important; height: 36px;}
+    /* 디자인 시스템 v6.7 */
+    .v6-box { background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 80px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
+    .v6-title { font-size: 16px; font-weight: 900; margin-bottom: 25px; color: #FFFFFF !important; border-left: 5px solid #39FF14; padding-left: 15px; text-transform: uppercase; }
     
-    /* Button Force: v6.5+ Optimization */
-    .stButton>button {background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 34px !important; border-radius: 6px !important; font-size: 10px !important; letter-spacing: -0.8px !important; transition: all 0.1s ease; width: 100% !important; min-width: 90px !important; padding: 0 8px !important; white-space: nowrap !important; overflow: visible !important;}
-    .stButton>button:hover {background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; opacity: 0.9;}
+    .stButton>button { background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 34px !important; border-radius: 6px !important; font-size: 11px !important; letter-spacing: -0.8px !important; width: 100% !important; }
+    .stButton>button:hover { background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; }
+    
+    .risk-box { background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 20px; border-radius: 10px; margin-bottom: 35px; color: #FF3131 !important; font-weight: 900; font-size: 14px; }
+    .cal-item { background: #161B22; border: 1px solid #30363D; border-radius: 10px; padding: 22px; margin-top: 15px; border-left: 5px solid #FFFF33; min-height: 190px; }
 
-    #MainMenu, footer, .stDeployButton {display: none !important;}
+    #MainMenu, footer, .stDeployButton { display: none !important; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -85,20 +85,21 @@ etfs = l_j('data/etf_list.json')
 upcs = l_j('data/upcoming_etf.json')
 
 # --- Header Layer ---
-st.markdown(m("<h2 style='margin:0;'>📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;font-weight:400;'>[v6.5 최종 마스터]</span></h2>"), unsafe_allow_html=True)
-st.markdown(m("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>정비 완료. 한국형 자산 방어 관제탑 v6.5.</p>"), unsafe_allow_html=True)
+# --- Header Layer ---
+st.markdown(f"<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v6.7 최종 마스터]</span></h2>", unsafe_allow_html=True)
+st.markdown("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>정비 완료. 한국형 자산 방어 관제탑 v6.7.</p>", unsafe_allow_html=True)
 
-d_c = len([p for p in portfolio if p.get('status') == '위험'])
+d_c = sum(1 for p in portfolio if calculate_loss_rate(p.get('purchase_price',0), p.get('current_price',0)) <= -10)
 ai_rep = get_ai_intel(f"유닛: {len(portfolio)} | 위험 자산: {d_c}. 현지화 완료.")
-st.markdown(m(f'<div class="risk-box">🚨 {ai_rep} </div>'), unsafe_allow_html=True)
+st.markdown(f'<div class="risk-box">🚨 {ai_rep} </div>', unsafe_allow_html=True)
 
 met = st.columns(4)
 def m_b(l,v,c="#39FF14"): return f'<div style="background:#161B22;border:1px solid #30363D;border-radius:12px;padding:20px;text-align:center;"><div style="color:#8B949E;font-size:10px;margin-bottom:8px;font-weight:700;">{l}</div><div style="font-size:22px;font-weight:900;color:{c};">{v}</div></div>'
-met[0].markdown(m(m_b("추적 자산", f"{len(portfolio)} 유닛")), unsafe_allow_html=True)
-sh = sum(calculate_loss_rate(p.get('purchase_price',10000)*0.95, p.get('purchase_price',10000)) for p in portfolio) / len(portfolio) if portfolio else 0
-met[1].markdown(m(m_b("평균 방어력", f"{sh:+.2f}%", "#FF3131" if sh<0 else "#39FF14")), unsafe_allow_html=True)
-met[2].markdown(m(m_b("방어선 돌파", f"{d_c} 유닛", "#FF3131" if d_c else "#39FF14")), unsafe_allow_html=True)
-met[3].markdown(m(m_b("상장 예정", f"{len(upcs)} 유닛", "#FFFF33")), unsafe_allow_html=True)
+met[0].markdown(m_b("추적 자산", f"{len(portfolio)} 유닛"), unsafe_allow_html=True)
+avg_d = sum(calculate_loss_rate(p.get('purchase_price',0), p.get('current_price',1)) for p in portfolio)/len(portfolio) if portfolio else 0
+met[1].markdown(m_b("평균 방어력", f"{avg_d:+.2f}%", "#FF3131" if avg_d<0 else "#39FF14"), unsafe_allow_html=True)
+met[2].markdown(m_b("방어선 돌파", f"{d_c} 유닛", "#FF3131" if d_c else "#39FF14"), unsafe_allow_html=True)
+met[3].markdown(m_b("상장 예정", f"{len(upcs)} 유닛", "#FFFF33"), unsafe_allow_html=True)
 
 st.divider()
 
@@ -136,11 +137,11 @@ with tabs[0]:
                     for r, itm in enumerate(tp[:10]):
                         pk = f"mw_{tn}_{itm['symbol']}_{r+1}"
                         is_t = any(p['symbol'] == itm['symbol'] for p in portfolio)
-                        rc = st.columns([0.3, 2.0, 3.5, 1.5, 1.5])
-                        rc[0].markdown(m(f'<div style="height:36px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:12px;">{r+1}</div>'), unsafe_allow_html=True)
-                        rc[1].markdown(m(f'<div style="height:36px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:11px;">{itm["issuer"]}</div>'), unsafe_allow_html=True)
-                        rc[2].markdown(m(f'<div style="height:36px;display:flex;align-items:center;font-weight:700;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{itm["name"][:16]}</div>'), unsafe_allow_html=True)
-                        rc[3].markdown(m(f'<div style="height:36px;display:flex;align-items:center;justify-content:flex-end;font-weight:900;color:#39FF14;font-size:12px;">{itm["price_at_listing"]:,}</div>'), unsafe_allow_html=True)
+                rc = st.columns([0.3, 2.0, 3.8, 1.3, 1.4])
+                rc[0].markdown(f'<div style="height:36px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:12px;">{r+1}</div>', unsafe_allow_html=True)
+                rc[1].markdown(f'<div style="height:36px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:11px;">{itm["issuer"]}</div>', unsafe_allow_html=True)
+                rc[2].markdown(f'<div style="height:36px;display:flex;align-items:center;font-weight:700;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{itm["name"][:20]}</div>', unsafe_allow_html=True)
+                rc[3].markdown(f'<div style="height:36px;display:flex;align-items:center;justify-content:flex-end;font-weight:900;color:#39FF14;font-size:12px;">{itm["price_at_listing"]:,}</div>', unsafe_allow_html=True)
                         with rc[4]:
                             if is_t:
                                 if st.button("추적 해제", key=f"utk_{pk}"):
