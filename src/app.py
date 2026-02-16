@@ -110,8 +110,13 @@ with tabs[0]: # Market Watch (무조건 10개 인양)
                     if st.button("해제" if is_t else "추적", key=f"tk_{idx}_{itm.get('symbol')}"): handle_action(itm, "TOGGLE")
             st.markdown("</div>", unsafe_allow_html=True)
 
-with tabs[1]: # Upcoming (인터랙션 완결)
-    st.markdown("""<div class="beta-notice"><b>beta:</b> 추후 상장 즉시 <b>'0.1초 자동 매수'</b>하는 풀-오토 시스템을 제공합니다.</div>""", unsafe_allow_html=True)
+with tabs[1]: # Upcoming (상장 일정)
+    st.markdown("""
+        <div class="beta-notice">
+            <b>beta : 현재 버전은 BETA 모드입니다.</b> 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 
+            예약한 종목을 상장 즉시 <b>'0.1초 자동 매수'</b>하는 풀-오토 시스템을 제공할 예정입니다.
+        </div>
+    """, unsafe_allow_html=True)
     upcs = sorted(l_j(U_FILE), key=lambda x: x.get('listing_date', '9999-12-31'))
     cols = st.columns(4)
     for i, itm in enumerate(upcs):
@@ -128,8 +133,13 @@ with tabs[1]: # Upcoming (인터랙션 완결)
                     qty = st.number_input("수량(주)", 1, 1000, 10, key=f"q_{itm.get('ticker')}")
                     if st.button("구매를 예약 하시겠습니까?", key=f"conf_{itm.get('ticker')}"): handle_action(itm, "RESERVE", qty)
 
-with tabs[2]: # Risk Control (게이지 복원)
-    st.markdown("""<div class="beta-notice" style="border-color:#FF3131;color:#FF3131;background:rgba(255,49,49,0.05);"><b>beta:</b> 원칙(-10.0%) 이탈 즉시 <b>'자동 매도'</b>하는 방어 시스템을 제공합니다.</div>""", unsafe_allow_html=True)
+with tabs[2]: # Risk Control (위험 통제)
+    st.markdown("""
+        <div class="beta-notice" style="border-color: #FF3131; color: #FF3131; background: rgba(255, 49, 49, 0.05);">
+            <b>beta : 현재 버전은 BETA 모드입니다.</b> 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 
+            당신의 자산이 원칙(-10.0%)을 이탈한 즉시 <b>'자동 매도'</b>하는 Full-Auto 방어 시스템을 제공할 예정입니다.
+        </div>
+    """, unsafe_allow_html=True)
     c1, c2 = st.columns(2)
     with c1:
         st.markdown("### 🛰️ 실시간 추적 자산 (게이지 가동)")
