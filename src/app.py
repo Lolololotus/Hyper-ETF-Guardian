@@ -9,17 +9,20 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="expanded")
 
 # --- AI Intelligence Layer ---
-GEMINI_API_KEY = "AIzaSyAM7V3Pajf00lBGK6ZDSBfKFya8aKENkm0"
-genai.configure(api_key=GEMINI_API_KEY)
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 def get_ai_intel(prompt):
+    if not GEMINI_API_KEY: return "[R: 5.0 / C: Key Missing / R: Check Config]"
     try:
         model = genai.GenerativeModel('gemini-2.0-flash')
-        sys_p = "Quant Expert. Strictly: [Risk: X / Cause: Y / Rec: Z]."
+        # Optimized for Vercel 10s Timeout: Zero-Latency Prompting
+        sys_p = "Expert. Response: [R:X/C:Y/R:Z]. Max 15 words."
         response = model.generate_content(f"{sys_p}\n\n{prompt}")
-        if not response or not response.text: return "[Risk: 5.0 / Cause: Standby / Rec: Manual Check]"
+        if not response or not response.text: return "[R: 5.0 / C: Standby / R: Manual Check]"
         return response.text.replace("\n", " ").strip()
-    except Exception: return "[Risk: 5.0 / Cause: Error / Rec: Manual Check]"
+    except Exception: return "[R: 5.0 / C: Timeout/Error / R: Manual Check]"
 
 # --- Absolute Physical Constraint Mastery: [v6.5 FULL LOCALIZATION] ---
 def m(h): return h.replace("\n", "").strip()

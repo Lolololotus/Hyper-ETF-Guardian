@@ -1,5 +1,4 @@
 streamlit
+google-generativeai
 pandas
-finance-datareader
-plotly
-json5
+jinja2
