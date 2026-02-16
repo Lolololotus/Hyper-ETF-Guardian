@@ -61,8 +61,34 @@ h1,h2,h3,h4,h5,h6,p,span,label,div,li {{color: #FFFFFF !important; font-family: 
 /* Risk Panel */
 .risk-box {{background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 20px; border-radius: 10px; margin-bottom: 35px; color: #FF3131 !important; font-weight: 900; font-size: 14px;}}
 
-#MainMenu, footer, .stDeployButton {{display: none !important;}}
-div.block-container {{padding-top: 2rem !important;}}
+#MainMenu, footer, .stDeployButton {display: none !important;}
+div.block-container {padding-top: 2rem !important;}
+
+/* --- v6.6 Sidebar Dark Mode Patch --- */
+[data-testid="stSidebar"] {
+    background-color: #0E1117 !important;
+    border-right: 1px solid #30363D !important;
+}
+[data-testid="stSidebar"] .stMarkdown,
+[data-testid="stSidebar"] .stCheckbox label,
+[data-testid="stSidebar"] p {
+    color: #E0E0E0 !important;
+}
+[data-testid="stSidebar"] .stCheckbox input:checked + div {
+    border-color: #00FF00 !important;
+    background-color: rgba(0, 255, 0, 0.1) !important;
+}
+[data-testid="stSidebar"] .stButton > button {
+    background-color: #21262D !important;
+    color: #FF4B4B !important;
+    border: 1px solid #FF4B4B !important;
+    width: 100% !important;
+    font-weight: bold !important;
+}
+[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: #FF4B4B !important;
+    color: #FFFFFF !important;
+}
 </style>
 """), unsafe_allow_html=True)
 
