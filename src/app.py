@@ -169,6 +169,7 @@ with tabs[2]:
         l1, l2, l3 = st.columns([4, 2, 1])
         l1.markdown(f'<div style="padding:10px;background:#161B22;border-radius:4px;"><span class="badge badge-standby">STANDBY</span> <b>{item["name"]}</b> <small>({item["symbol"]})</small></div>', unsafe_allow_html=True)
         l2.markdown(f'<div style="padding:10px;text-align:center;">📅 {item.get("listing_date")} | {item.get("purchase_price",0):,} KRW</div>', unsafe_allow_html=True)
+        with l3: # Moved the button into the third column
             if st.button("CANCEL", key=f"cr_can_{item['symbol']}_{i}"):
                 portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
 
