@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 from monitor import calculate_loss_rate
 
-# 1. [v6.9 Master] 최상단 레이아웃 설정
+# 1. [v7.0 Master] 최상단 레이아웃 설정
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="collapsed")
 
 # --- AI Intelligence Layer ---
@@ -31,7 +31,7 @@ def get_ai_intel(prompt):
         return response.text.replace("\n", " ").strip()
     except Exception: return "[위험: 5.0 / 원인: 타임아웃 / 권고: 수동 확인]"
 
-# 2. [v6.9 Master] 사이드바 완전 박멸 및 100% 가용 레이아웃 CSS
+# 2. [v7.0 Master] 사이드바 박멸 및 UI 정밀 정렬 CSS
 st.markdown("""
     <style>
     /* 사이드바 원천 차단 */
@@ -42,29 +42,54 @@ st.markdown("""
     .stApp { background-color: #0A0E14 !important; color: #FFFFFF !important; }
     h1,h2,h3,h4,h5,h6,p,span,label,div,li { color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.5px !important; }
     
-    /* 메인 컨테이너 여백 최적화 (Total Space Liberation) */
+    /* 메인 컨테이너 여백 최적화 (Maximized Space) */
     .block-container {
         padding: 2rem 2rem !important;
         max-width: 98% !important;
     }
 
-    /* 디자인 시스템 v6.9: Unique Color Identities & Recovery */
+    /* 디자인 시스템 v7.0: Knife-Edge Alignment */
     .v6-box { background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 25px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
     .v6-title { font-size: 14px; font-weight: 900; margin-bottom: 20px; color: #FFFFFF !important; padding-left: 12px; text-transform: uppercase; }
     
-    .stButton>button { background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 32px !important; border-radius: 6px !important; font-size: 10px !important; letter-spacing: -1px !important; width: 100% !important; white-space: nowrap !important; }
+    /* 버튼 칼정렬 프로토콜 */
+    .list-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+        border-bottom: 1px solid #282E36 !important;
+    }
+    .item-info { display: flex; align-items: center; flex-grow: 1 !important; gap: 15px; overflow: hidden; }
+    .item-action { min-width: 100px !important; text-align: right !important; margin-left: 15px; }
+    
+    .stButton>button { background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 32px !important; border-radius: 6px !important; font-size: 11px !important; letter-spacing: -1px !important; width: 100% !important; white-space: nowrap !important; }
     .stButton>button:hover { background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; }
     
     .risk-box { background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 20px; border-radius: 10px; margin-bottom: 35px; color: #FF3131 !important; font-weight: 900; font-size: 14px; }
     
-    /* v6.9 캘린더 카드 복구 */
     .upcoming-card {
         border-left: 5px solid #FFD700 !important;
         background-color: #1A1C23 !important;
         padding: 20px !important;
-        border-radius: 8px !important;
+        border-radius: 0 8px 8px 0 !important;
         margin-bottom: 15px !important;
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .date-badge {
+        background: #FFD700;
+        color: #000;
+        padding: 2px 10px;
+        border-radius: 4px;
+        font-weight: 900;
+        font-size: 11px;
+        width: fit-content;
+        margin-bottom: -5px;
+        position: relative;
+        z-index: 10;
+        letter-spacing: -0.5px;
     }
 
     #MainMenu, footer, .stDeployButton { display: none !important; }
@@ -104,13 +129,14 @@ def deploy_logic(itm):
         })
         s_j('data/user_portfolio.json', portfolio)
         st.toast(f"🚨 {itm['name']} 예약 시스템 가동 완료.")
+        st.rerun()
 
 # --- Header Layer ---
-st.markdown(f"<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v6.9 마스터 빌드]</span></h2>", unsafe_allow_html=True)
-st.markdown("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>정비 완료. 캘린더 스타일 및 예약 시스템 복구 v6.9.</p>", unsafe_allow_html=True)
+st.markdown(f"<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v7.0 마스터 마일스톤]</span></h2>", unsafe_allow_html=True)
+st.markdown("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>정비 완료. 버튼 칼정렬 및 예약 동기화 시스템 v7.0.</p>", unsafe_allow_html=True)
 
 d_c = sum(1 for p in portfolio if calculate_loss_rate(p.get('purchase_price',0), p.get('current_price',0)) <= -10)
-ai_rep = get_ai_intel(f"유닛: {len(portfolio)} | 위험 자산: {d_c}. v6.9 복구 가동.")
+ai_rep = get_ai_intel(f"유닛: {len(portfolio)} | 위험 자산: {d_c}. v7.0 무결성 집행.")
 st.markdown(f'<div class="risk-box">🚨 {ai_rep} </div>', unsafe_allow_html=True)
 
 met = st.columns(4)
@@ -126,7 +152,7 @@ st.divider()
 # --- Strategic Dashboard (Tabs) ---
 tabs = st.tabs(["📊 시장 감시", "📅 상장 일정", "🚨 위험 통제"])
 
-# Tab 1: Market Watch (2x3 Grid)
+# Tab 1: Market Watch (Flexbox Alignment)
 with tabs[0]:
     themes = [
         {"name": "AI 및 반도체 핵심 전략", "keys": ["AI", "반도체", "NVIDIA", "HBM"], "color": "#39FF14"},
@@ -138,9 +164,9 @@ with tabs[0]:
     ]
     
     total_rendered = 0
-    cols = st.columns(3)
-    cols2 = st.columns(3)
-    all_cols = cols + cols2
+    cols_u = st.columns(3)
+    cols_d = st.columns(3)
+    all_cols = cols_u + cols_d
     
     for idx, th in enumerate(themes):
         with all_cols[idx]:
@@ -155,35 +181,43 @@ with tabs[0]:
                 total_rendered += 1
                 pk = f"mw_{idx}_{itm['symbol']}"
                 is_t = any(p['symbol'] == itm['symbol'] for p in portfolio)
-                rc = st.columns([0.3, 1.2, 3.0, 1.3, 3.0])
-                with rc[0]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;color:#8B949E;font-size:11px;">{r+1}</div>', unsafe_allow_html=True)
-                with rc[1]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;color:#8B949E;font-size:10px;">{itm["issuer"]}</div>', unsafe_allow_html=True)
-                with rc[2]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;font-size:11px;font-weight:700;overflow:hidden;white-space:nowrap;">{itm["name"]}</div>', unsafe_allow_html=True)
-                with rc[3]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;justify-content:flex-end;color:#39FF14;font-size:11px;font-weight:900;">{itm["price_at_listing"]:,}</div>', unsafe_allow_html=True)
-                with rc[4]:
-                    if st.button("추적 해제" if is_t else "추적 시작", key=pk):
-                        if is_t: portfolio = [p for p in portfolio if p['symbol'] != itm['symbol']]
-                        else: portfolio.append({"symbol": itm['symbol'], "name": itm['name'], "issuer": itm['issuer'], "purchase_price": itm['price_at_listing'], "current_price": itm['price_at_listing']})
-                        s_j('data/user_portfolio.json', portfolio); st.rerun()
-                if r < 9: st.markdown('<div style="border-bottom:1px solid #282E36;margin:5px 0;"></div>', unsafe_allow_html=True)
+                
+                # Flexbox를 통한 정밀 정렬
+                c_row = st.container()
+                with c_row:
+                    col_info, col_btn = st.columns([7, 3])
+                    with col_info:
+                        st.markdown(f"""
+                            <div class='item-info'>
+                                <span style='color:#8B949E;font-size:11px;width:15px;'>{r+1}</span>
+                                <span style='color:#8B949E;font-size:10px;width:60px;overflow:hidden;white-space:nowrap;'>{itm["issuer"][:4]}</span>
+                                <span style='font-size:11px;font-weight:700;flex-grow:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;'>{itm["name"]}</span>
+                                <span style='color:#39FF14;font-size:11px;font-weight:900;'>{itm["price_at_listing"]:,}</span>
+                            </div>
+                        """, unsafe_allow_html=True)
+                    with col_btn:
+                        if st.button("추적 해제" if is_t else "추적 시작", key=pk):
+                            if is_t: portfolio = [p for p in portfolio if p['symbol'] != itm['symbol']]
+                            else: portfolio.append({"symbol": itm['symbol'], "name": itm['name'], "issuer": itm['issuer'], "purchase_price": itm['price_at_listing'], "current_price": itm['price_at_listing']})
+                            s_j('data/user_portfolio.json', portfolio); st.rerun()
+                st.markdown('<div style="border-bottom:1px solid #282E36;margin:0;"></div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
-# Tab 2: Upcoming (Calendar Card Recovery)
+# Tab 2: Upcoming (Date Badge & Reserve Sync)
 with tabs[1]:
-    st.markdown("<div style='font-size:18px;font-weight:900;margin-bottom:20px;'>📅 상장 예정 하이퍼 자산 (달력 스타일 복구)</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:18px;font-weight:900;margin-bottom:30px;'>📅 상장 예정 하이퍼 자산 (날짜 배지 복구)</div>", unsafe_allow_html=True)
     c_up = st.columns(4)
     for i, itm in enumerate(upcs):
         with c_up[i % 4]:
+            st.markdown(f"<div class='date-badge'>📅 {itm['listing_date']}</div>", unsafe_allow_html=True)
             st.markdown(f"""
                 <div class='upcoming-card'>
-                    <div style='font-size:10px;color:#8B949E;font-weight:700;'>{itm['issuer']} | {itm['ticker']}</div>
-                    <div style='font-size:13px;font-weight:900;margin:10px 0;height:35px;overflow:hidden;'>{itm['name']}</div>
-                    <div style='font-size:11px;color:#FFD700;font-weight:900;'>상장일: {itm['listing_date']}</div>
+                    <div style='font-size:10px;color:#8B949E;font-weight:700;margin-bottom:5px;'>{itm['issuer']} | {itm['ticker']}</div>
+                    <div style='font-size:14px;font-weight:900;height:40px;overflow:hidden;'>{itm['name']}</div>
                 </div>
             """, unsafe_allow_html=True)
             if st.button("상장 예약", key=f"res_{itm['ticker']}"):
                 deploy_logic(itm)
-                st.rerun()
 
 # Tab 3: Control Room
 with tabs[2]:
@@ -193,4 +227,4 @@ with tabs[2]:
         st.markdown(f"<div style='background:#161B22;border:1px solid {'#FF3131' if l_r <= -10 else '#30363D'};padding:15px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;'><div><span style='color:#8B949E;font-size:12px;'>{p.get('issuer','Unknown')} | {'예약 중' if p.get('status')=='예약 중' else '라이브'}</span><br><b style='font-size:16px;'>{p['name']}</b></div><div style='text-align:right;'><span style='color:{'#FF3131' if l_r <= -10 else '#39FF14'};font-size:20px;font-weight:900;'>{l_r:.2f}%</span><br><span style='font-size:12px;color:#8B949E;'>상태: {p.get('status','정상')}</span></div></div>", unsafe_allow_html=True)
 
 # Footer & Integrity Log
-st.markdown(f"<div style='color:#484F58;font-size:11px;text-align:center;margin-top:100px;'>하이퍼 ETF 가디언 v6.9 마스터 빌드 | 캘린더 스타일 복구 완료 | 예약 시스템 가동 중 | 총 인양 유닛: {total_rendered} Units | 지능: Gemini 2.0 Flash</div>", unsafe_allow_html=True)
+st.markdown(f"<div style='color:#484F58;font-size:11px;text-align:center;margin-top:100px;'>하이퍼 ETF 가디언 v7.0 마스터 빌드 | 버튼 칼정렬 프로토콜 작동 중 | 예약 동기화 완료 | 인양 유닛: {total_rendered} Units | 지능: Gemini 2.0 Flash</div>", unsafe_allow_html=True)
