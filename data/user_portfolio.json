@@ -65,12 +65,6 @@
     "listing_date": "2026-02-20"
   },
   {
-    "symbol": "069500",
-    "name": "KODEX 200",
-    "purchase_price": 81860,
-    "status": "추적 중"
-  },
-  {
     "symbol": "379810",
     "name": "KODEX 미국나스닥100",
     "purchase_price": 24181,
@@ -80,6 +74,12 @@
     "symbol": "442430",
     "name": "KBSTAR AMUNDI유럽글로벌전략액티브",
     "purchase_price": 10500,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "069500",
+    "name": "KODEX 200",
+    "purchase_price": 81860,
     "status": "추적 중"
   }
 ]
