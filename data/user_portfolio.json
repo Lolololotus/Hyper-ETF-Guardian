@@ -3,76 +3,76 @@
     "symbol": "455850",
     "name": "SOL AI반도체소부장",
     "purchase_price": 22350,
-    "status": "추적 중"
-  },
-  {
-    "symbol": "354500",
-    "name": "ACE 코스닥150",
-    "purchase_price": 19560,
-    "status": "추적 중"
-  },
-  {
-    "symbol": "270810",
-    "name": "KBSTAR 코스닥150",
-    "purchase_price": 18820,
-    "status": "추적 중"
+    "status": "추적 중",
+    "loss": -3.5000000000000004,
+    "cur": 21567.75
   },
   {
     "symbol": "396500",
     "name": "TIGER 반도체TOP10",
     "purchase_price": 14551,
-    "status": "추적 중"
+    "status": "추적 중",
+    "loss": -3.499999999999999,
+    "cur": 14041.715
   },
   {
     "symbol": "360750",
     "name": "TIGER 미국S&P500",
     "purchase_price": 14346,
-    "status": "추적 중"
+    "status": "추적 중",
+    "loss": -3.500000000000004,
+    "cur": 13843.89
   },
   {
     "symbol": "500210",
     "name": "TIGER 온디바이스 AI 인프라",
     "purchase_price": 0,
     "status": "대기",
-    "listing_date": "2026-02-18"
+    "listing_date": "2026-02-18",
+    "loss": 0.0,
+    "cur": 10000.0
   },
   {
     "symbol": "500510",
     "name": "KBSTAR KRX 밸류업 지수",
     "purchase_price": 0,
     "status": "대기",
-    "listing_date": "2026-02-24"
+    "listing_date": "2026-02-24",
+    "loss": 0.0,
+    "cur": 10000.0
   },
   {
     "symbol": "500420",
     "name": "ACE 글로벌 빅테크 TOP7",
     "purchase_price": 0,
     "status": "대기",
-    "listing_date": "2026-02-20"
+    "listing_date": "2026-02-20",
+    "loss": 0.0,
+    "cur": 10000.0
   },
   {
     "symbol": "379810",
     "name": "KODEX 미국나스닥100",
     "purchase_price": 24181,
-    "status": "추적 중"
+    "status": "추적 중",
+    "loss": -3.499999999999996,
+    "cur": 23334.665
   },
   {
     "symbol": "442430",
     "name": "KBSTAR AMUNDI유럽글로벌전략액티브",
     "purchase_price": 10500,
-    "status": "추적 중"
-  },
-  {
-    "symbol": "069500",
-    "name": "KODEX 200",
-    "purchase_price": 81860,
-    "status": "추적 중"
+    "status": "추적 중",
+    "loss": -3.5000000000000004,
+    "cur": 10132.5
   },
   {
     "symbol": "500120",
     "name": "KODEX 미국 테크 밸류업",
     "purchase_price": 0,
     "status": "대기",
-    "listing_date": "2026-02-18"
+    "listing_date": "2026-02-18",
+    "loss": 0.0,
+    "cur": 10000.0
   }
 ]

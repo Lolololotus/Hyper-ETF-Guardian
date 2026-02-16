@@ -124,10 +124,10 @@ with st.sidebar:
     st.header("🛠️ 관제 센터")
     
     st.subheader("🏢 운용사 필터")
-    issuers = ["KODEX", "TIGER", "KBSTAR", "ACE", "SOL"]
+    issuers_static = ["KODEX", "TIGER", "KBSTAR", "ACE", "SOL"]
     selected_issuers = []
-    for issuer in issuers:
-        if st.checkbox(issuer, value=True, key=f"f_{issuer}"):
+    for issuer in issuers_static:
+        if st.checkbox(issuer, value=False, key=f"f_{issuer}"): # 기본값은 False로 설정 (모두 해제 시 전체 보기용)
             selected_issuers.append(issuer)
             
     st.subheader("🤖 AI Smart Theme")
@@ -137,13 +137,15 @@ with st.sidebar:
     st.divider()
     if st.button("♻️ RESET PORTFOLIO"): save_json('data/user_portfolio.json', []); st.rerun()
 
+# 필터 로직 정상화 (Logic Sync): 운용사 체크박스가 모두 해제되어 있으면 '전체 보기'
+effective_issuers = selected_issuers if selected_issuers else issuers_static
+filtered_base = [e for e in etf_list if any(issuer in e['issuer'] for issuer in effective_issuers)]
+
 # --- Market Watch ---
 tabs = st.tabs(["📊 Market Watch", "📅 Upcoming", "🚨 Control Room"])
 
 with tabs[0]:
-    st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 5대 운용사의 ETF 데이터를 실시간 추적하고 기계적 손절(-10%) 알림을 통해 사유를 방해하는 현실적 불안을 차단합니다.</div>""", unsafe_allow_html=True)
-    
-    filtered_base = [e for e in etf_list if any(issuer in e['issuer'] for issuer in selected_issuers)]
+    st.markdown('<div class="vision-banner"><strong>[BETA Vision]</strong> 5대 운용사의 ETF 데이터를 실시간 추적하고 기계적 손절(-10%) 알림을 통해 사유를 방해하는 현실적 불안을 차단합니다.</div>', unsafe_allow_html=True)
     
     # Hierarchical Sectioning
     main_sections = {
@@ -156,29 +158,28 @@ with tabs[0]:
     # AI Custom Sections
     if theme1:
         ai_symbols = get_smart_recommendations(theme1, etf_list)
-        main_sections[f"🤖 AI Custom: {theme1}"] = ai_symbols
+        if ai_symbols: main_sections[f"🤖 AI Custom: {theme1}"] = ai_symbols
     if theme2:
         ai_symbols2 = get_smart_recommendations(theme2, etf_list)
-        main_sections[f"🤖 AI Custom: {theme2}"] = ai_symbols2
+        if ai_symbols2: main_sections[f"🤖 AI Custom: {theme2}"] = ai_symbols2
 
     for section_name, identifier in main_sections.items():
-        st.subheader(section_name)
-        if isinstance(identifier, list) and identifier and identifier[0].isdigit(): # AI Recommended symbols
+        if isinstance(identifier, list) and identifier and identifier[0].isdigit(): 
              section_etfs = [e for e in filtered_base if e['symbol'] in identifier]
-        else: # Keyword search
+        else:
              section_etfs = [e for e in filtered_base if any(k.lower() in e['name'].lower() for k in identifier)]
         
-        if not section_etfs:
-            st.info("해당 조건의 종목이 없습니다.")
-            continue
-            
+        if not section_etfs: continue
+        
+        st.subheader(section_name)
         cols = st.columns(3)
         for idx, item in enumerate(section_etfs):
             existing_p = next((p for p in portfolio if p['symbol'] == item['symbol']), None)
             with cols[idx % 3]:
-                card = f'<div class="etf-card"><div style="color: #8B949E; font-size: 11px;">{item["issuer"]}</div>'
-                card += f'<div style="font-size: 17px; font-weight: bold; color:white; margin: 10px 0;">{item["name"]}</div>'
-                card += f'<div style="font-size: 22px; color: #FFFFFF; font-weight:900;">{item["price_at_listing"]:,} <span style="font-size: 12px; color: #8B949E;">KRW</span></div></div>'
+                # HTML 무결성 (Zero Tolerance): 개행 및 공백 제거
+                card = f'<div class="etf-card"><div style="color:#8B949E;font-size:11px;">{item["issuer"]}</div>'
+                card += f'<div style="font-size:17px;font-weight:bold;color:white;margin:10px 0;">{item["name"]}</div>'
+                card += f'<div style="font-size:22px;color:#FFFFFF;font-weight:900;">{item["price_at_listing"]:,} <span style="font-size:12px;color:#8B949E;">KRW</span></div></div>'
                 st.markdown(card, unsafe_allow_html=True)
                 
                 if existing_p:
@@ -206,10 +207,10 @@ with tabs[1]:
         with cols[i]:
             st.markdown(f'<div class="calendar-day"><div class="calendar-date">{days_kr[i]} ({d})</div>', unsafe_allow_html=True)
             day_items = [e for e in upcoming_list if e['listing_date'] == d]
-            if not day_items: st.markdown('<div style="text-align:center; color:#484F58; font-size:11px; margin-top:20px;">No Listing</div>', unsafe_allow_html=True)
+            if not day_items: st.markdown('<div style="text-align:center;color:#484F58;font-size:11px;margin-top:20px;">No Listing</div>', unsafe_allow_html=True)
             for item in day_items:
                 is_res = any(p['symbol'] == item['ticker'] for p in portfolio)
-                st.markdown(f'<div class="cal-item"><div style="font-size:12px; font-weight:bold; color:white;">{item["name"]}</div><div style="font-size:10px; color:#8B949E; margin-top:3px;">{item["theme"]}</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="cal-item"><div style="font-size:12px;font-weight:bold;color:white;">{item["name"]}</div><div style="font-size:10px;color:#8B949E;margin-top:3px;">{item["theme"]}</div></div>', unsafe_allow_html=True)
                 if is_res:
                     if st.button("✓ RESV", key=f"cal_v_{item['ticker']}"):
                         portfolio = [p for p in portfolio if p['symbol'] != item['ticker']]
@@ -221,41 +222,34 @@ with tabs[1]:
             st.markdown('</div>', unsafe_allow_html=True)
 
 with tabs[2]:
-    st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 원칙(-10.0%) 이탈 즉시 <strong>'자동 매도'</strong>를 집행하여 인간의 망설임이 야기하는 비극을 차단합니다.</div>""", unsafe_allow_html=True)
+    st.markdown('<div class="vision-banner"><strong>[BETA Vision]</strong> 원칙(-10.0%) 이탈 즉시 <strong>\'자동 매도\'</strong>를 집행하여 인간의 망설임이 야기하는 비극을 차단합니다.</div>', unsafe_allow_html=True)
     
     # 데이터 가공 및 리스크 정렬
     processed = []
     for p in portfolio:
-        base = p.get('purchase_price', 10000)
-        if base == 0: base = 10000
-        cur = base * (0.965 if p['status'] == '추적 중' else 0.88 if p['status'] == '위험' else 1.0)
-        p['loss'] = calculate_loss_rate(cur, base)
-        p['cur'] = cur
+        base_p = p.get('purchase_price', 10000)
+        if base_p == 0: base_p = 10000
+        cur_v = base_p * (0.965 if p['status'] == '추적 중' else 0.88 if p['status'] == '위험' else 1.0)
+        p['loss'] = calculate_loss_rate(cur_v, base_p)
+        p['cur'] = cur_v
         processed.append(p)
     
-    # Section 1: Risk Priority (Active Tracking)
+    # Section 1: Risk Priority (Active Tracking) - 손실률 기준 오름차순 (가장 큰 손실이 위쪽)
     tracking = [p for p in processed if p['status'] != '대기']
-    tracking.sort(key=lambda x: x['loss']) # Lowest (most negative) loss first
+    tracking.sort(key=lambda x: x['loss'])
     
     st.subheader("🔥 Risk Priority Command")
     if not tracking: st.info("감시 대기 중인 활성 프로토콜이 없습니다.")
     for item in tracking:
-        loss = item['loss']
-        st.markdown(f"""
-            <div class="etf-card">
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <div>
-                        <div class="badge {get_status_class(item['status'])}">{item['status']}</div>
-                        <div style="font-size: 19px; font-weight: bold; color: white;">{item['name']} <span style="font-size: 12px; color: #484F58;">({item['symbol']})</span></div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 28px; font-weight: 900; color: {'#FF3131' if loss <= -8 else '#39FF14'};">{loss:+.1f}%</div>
-                        <div style="font-size: 14px; font-weight: bold; color: white; margin-top:2px;">{int(item['cur']):,} KRW</div>
-                    </div>
-                </div>
-                {render_gauge(loss)}
-            </div>
-        """, unsafe_allow_html=True)
+        loss_val = item['loss']
+        # HTML 무결성 확보: 개행 및 인덴트 제거
+        m_card = f'<div class="etf-card"><div style="display:flex;justify-content:space-between;align-items:start;">'
+        m_card += f'<div><div class="badge {get_status_class(item["status"])}">{item["status"]}</div>'
+        m_card += f'<div style="font-size:19px;font-weight:bold;color:white;">{item["name"]} <span style="font-size:12px;color:#484F58;">({item["symbol"]})</span></div></div>'
+        m_card += f'<div style="text-align:right;"><div style="font-size:28px;font-weight:900;color:{"#FF3131" if loss_val <= -8 else "#39FF14"};">{loss_val:+.1f}%</div>'
+        m_card += f'<div style="font-size:14px;font-weight:bold;color:white;margin-top:2px;">{int(item["cur"]):,} KRW</div></div></div>'
+        m_card += f'{render_gauge(loss_val)}</div>'
+        st.markdown(m_card, unsafe_allow_html=True)
         if st.button("✓ UNTRACK", key=f"ctrl_un_{item['symbol']}"):
             portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]
             save_json('data/user_portfolio.json', portfolio); st.rerun()
@@ -267,14 +261,10 @@ with tabs[2]:
     st.divider()
     st.subheader("⏳ Standby Protocol")
     for item in standby:
-        st.markdown(f"""
-            <div class="etf-card" style="padding: 15px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div><span class="badge badge-standby">STANDBY</span> <span style="font-size:16px; font-weight:bold; color:white; margin-left:10px;">{item['name']}</span></div>
-                    <div style="color: #FFFF33; font-size:12px; font-weight:bold;">📅 {item.get('listing_date')}</div>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+        s_card = f'<div class="etf-card" style="padding:15px;"><div style="display:flex;justify-content:space-between;align-items:center;">'
+        s_card += f'<div><span class="badge badge-standby">STANDBY</span><span style="font-size:16px;font-weight:bold;color:white;margin-left:10px;">{item["name"]}</span></div>'
+        s_card += f'<div style="color:#FFFF33;font-size:12px;font-weight:bold;">📅 {item.get("listing_date")}</div></div></div>'
+        st.markdown(s_card, unsafe_allow_html=True)
         if st.button("CANCEL RESERVATION", key=f"ctrl_can_{item['symbol']}"):
              portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]
              save_json('data/user_portfolio.json', portfolio); st.rerun()
