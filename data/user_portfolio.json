@@ -1,6 +1,53 @@
 [
   {
-    "symbol": "069500",
-    "purchase_price": 81860
+    "symbol": "455850",
+    "name": "SOL AI반도체소부장",
+    "purchase_price": 22350,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "354500",
+    "name": "ACE 코스닥150",
+    "purchase_price": 19560,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "270810",
+    "name": "KBSTAR 코스닥150",
+    "purchase_price": 18820,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "396500",
+    "name": "TIGER 반도체TOP10",
+    "purchase_price": 14551,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "360750",
+    "name": "TIGER 미국S&P500",
+    "purchase_price": 14346,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "500350",
+    "name": "SOL 미국 국채 월배당(20년+)",
+    "purchase_price": 0,
+    "status": "대기",
+    "listing_date": "2026-02-20"
+  },
+  {
+    "symbol": "500210",
+    "name": "TIGER 온디바이스 AI 인프라",
+    "purchase_price": 0,
+    "status": "대기",
+    "listing_date": "2026-02-18"
+  },
+  {
+    "symbol": "500510",
+    "name": "KBSTAR KRX 밸류업 지수",
+    "purchase_price": 0,
+    "status": "대기",
+    "listing_date": "2026-02-24"
   }
 ]
