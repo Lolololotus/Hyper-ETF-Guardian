@@ -1,9 +1,13 @@
 import streamlit as st
 import json
 import os
+import sys
 import google.generativeai as genai
-from monitor import calculate_loss_rate
 from datetime import datetime, timedelta
+
+# Ensure src is in path for imports
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+from monitor import calculate_loss_rate
 
 # Final Mastery Configuration
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="expanded")
