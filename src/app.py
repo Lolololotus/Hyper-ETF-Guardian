@@ -71,13 +71,12 @@ portfolio = load_json('data/user_portfolio.json')
 def render_gauge(loss_rate):
     percent = min(100, max(0, (abs(loss_rate) / 10.0) * 100))
     color = "#39FF14" if abs(loss_rate) < 5 else "#FFA500" if abs(loss_rate) < 8 else "#FF3131"
-    return f"""
-        <div style="font-size: 11px; color: #8B949E; margin-top: 15px;">📉 손절 방어선까지 남은 거리</div>
-        <div class="gauge-container"><div class="gauge-fill" style="width: {percent}%; background-color: {color};"></div></div>
-        <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top:5px; color: #484F58; font-weight: bold;">
-            <span>SAFE (0%)</span><span style="color: #FF3131;">-10% (CRITICAL)</span>
-        </div>
-    """
+    # 마크다운 오인식을 방지하기 위해 개행 및 인덴트가 없는 단일 라인 문자열로 반환
+    html = f'<div style="font-size: 11px; color: #8B949E; margin-top: 15px;">📉 손절 방어선까지 남은 거리</div>'
+    html += f'<div class="gauge-container"><div class="gauge-fill" style="width: {percent}%; background-color: {color};"></div></div>'
+    html += f'<div style="display: flex; justify-content: space-between; font-size: 10px; margin-top:5px; color: #484F58; font-weight: bold;">'
+    html += f'<span>SAFE (0%)</span><span style="color: #FF3131;">-10% (CRITICAL)</span></div>'
+    return html
 
 # --- Header ---
 st.markdown(f"<h1>🛡️ Hyper ETF Guardian <span class='beta-tag'>BETA</span></h1>", unsafe_allow_html=True)
@@ -92,12 +91,12 @@ with tabs[0]:
     for idx, item in enumerate(etf_list):
         existing_item = next((p for p in portfolio if p['symbol'] == item['symbol']), None)
         with cols[idx % 3]:
-            st.markdown(f"""
-                <div class="etf-card">
-                    <div style="color: #8B949E; font-size: 11px;">{item['issuer']}</div>
-                    <div style="font-size: 19px; font-weight: bold; margin-bottom: 15px;">{item['name']}</div>
-                    <div style="font-size: 24px; color: #FFFFFF; margin-bottom: 20px;">{item['price_at_listing']:,} <span style="font-size: 13px; color: #8B949E;">KRW</span></div>
-            """, unsafe_allow_html=True)
+            # 카드 구조 무결성을 위해 단일 f-string 사용 (태그 쪼개지 않음)
+            card_html = f'<div class="etf-card"><div style="color: #8B949E; font-size: 11px;">{item["issuer"]}</div>'
+            card_html += f'<div style="font-size: 19px; font-weight: bold; margin-bottom: 15px;">{item["name"]}</div>'
+            card_html += f'<div style="font-size: 24px; color: #FFFFFF; margin-bottom: 20px;">{item["price_at_listing"]:,} <span style="font-size: 13px; color: #8B949E;">KRW</span></div>'
+            st.markdown(card_html, unsafe_allow_html=True)
+            
             if existing_item:
                 st.markdown('<div class="tracked-btn">', unsafe_allow_html=True)
                 if st.button("✓ TRACKED", key=f"tracked_btn_{item['symbol']}"):
@@ -112,7 +111,7 @@ with tabs[0]:
                     save_json('data/user_portfolio.json', portfolio)
                     st.toast("✅ 트래킹 시작")
                     st.rerun()
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True) # Closes the etf-card
 
 with tabs[1]:
     st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 현재 버전은 BETA 모드입니다. 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 예약한 종목을 상장 즉시 <strong>'0.1초 자동 매수'</strong>하는 풀-오토 시스템을 제공할 예정입니다.</div>""", unsafe_allow_html=True)
@@ -122,16 +121,14 @@ with tabs[1]:
         is_reserved = any(p['symbol'] == item['ticker'] for p in portfolio)
         confirm_key = f"confirm_cancel_{item['ticker']}"
         with cols[idx % 3]:
-            st.markdown(f"""
-                <div class="etf-card">
-                    <div class='badge badge-standby'>STANDBY</div>
-                    <div style="color: #8B949E; font-size: 11px;">{item['issuer']} | {item['theme']}</div>
-                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">{item['name']}</div>
-                    <div style="font-size: 13px; color: #FFFF33; margin-bottom: 15px;">📅 Listing: {item['listing_date']}</div>
-            """, unsafe_allow_html=True)
+            # 카드 구조 무결성 확보
+            u_card = f'<div class="etf-card"><div class="badge badge-standby">STANDBY</div>'
+            u_card += f'<div style="color: #8B949E; font-size: 11px;">{item["issuer"]} | {item["theme"]}</div>'
+            u_card += f'<div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">{item["name"]}</div>'
+            u_card += f'<div style="font-size: 13px; color: #FFFF33; margin-bottom: 15px;">📅 Listing: {item["listing_date"]}</div>'
+            st.markdown(u_card, unsafe_allow_html=True)
             
             if is_reserved:
-                # 취소 컨펌 모드 체크
                 if st.session_state.get(confirm_key, False):
                     st.info("⚠️ 예약을 취소하시겠습니까?")
                     c1, c2 = st.columns(2)
@@ -158,7 +155,7 @@ with tabs[1]:
                     save_json('data/user_portfolio.json', portfolio)
                     st.toast("📅 상장 예약 완료")
                     st.rerun()
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True) # Closes the etf-card
 
 with tabs[2]:
     st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 현재 버전은 BETA 모드입니다. 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 당신의 자산이 원칙(-10.0%)을 이탈한 즉시 <strong>'자동 매도'</strong>하는 Full-Auto 방어 시스템을 제공할 예정입니다.</div>""", unsafe_allow_html=True)
@@ -171,21 +168,14 @@ with tabs[2]:
             if purchase_price == 0: purchase_price = 10000
             cur_price = purchase_price * (0.965 if item['status'] == '추적 중' else 0.88 if item['status'] == '위험' else 1.0)
             loss_rate = calculate_loss_rate(cur_price, purchase_price)
-            st.markdown(f"""
-                <div class="etf-card">
-                    <div style="display: flex; justify-content: space-between; align-items: start;">
-                        <div>
-                            <div class='badge {get_status_class(item['status'])}'>{item['status']}</div>
-                            <div style="font-size: 19px; font-weight: bold; color: #FFFFFF;">{item['name']} <span style="font-size: 13px; color: #484F58;">({item['symbol']})</span></div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 30px; font-weight: 900; color: {'#FF3131' if loss_rate <= -10 else '#39FF14'}; line-height: 1;">{loss_rate:+.1f}%</div>
-                            <div style="font-size: 15px; font-weight: bold; color: #FFFFFF; margin-top: 5px;">{int(cur_price):,} KRW</div>
-                        </div>
-                    </div>
-                    {render_gauge(loss_rate) if item['status'] != '대기' else ''}
-                </div>
-            """, unsafe_allow_html=True)
+            # 인덴트 없이 단일 라인으로 카드 생성하여 ghost </div> 태그 완벽 방어
+            m_card = f'<div class="etf-card"><div style="display: flex; justify-content: space-between; align-items: start;">'
+            m_card += f'<div><div class="badge {get_status_class(item["status"])}">{item["status"]}</div>'
+            m_card += f'<div style="font-size: 19px; font-weight: bold; color: #FFFFFF;">{item["name"]} <span style="font-size: 13px; color: #484F58;">({item["symbol"]})</span></div></div>'
+            m_card += f'<div style="text-align: right;"><div style="font-size: 30px; font-weight: 900; color: {"#FF3131" if loss_rate <= -10 else "#39FF14"}; line-height: 1;">{loss_rate:+.1f}%</div>'
+            m_card += f'<div style="font-size: 15px; font-weight: bold; color: #FFFFFF; margin-top: 5px;">{int(cur_price):,} KRW</div></div></div>'
+            m_card += f'{render_gauge(loss_rate) if item["status"] != "대기" else ""}</div>'
+            st.markdown(m_card, unsafe_allow_html=True)
 
 with st.sidebar:
     st.image("https://via.placeholder.com/150x50/161B22/39FF14?text=HYPER+GUARD", use_container_width=True)
