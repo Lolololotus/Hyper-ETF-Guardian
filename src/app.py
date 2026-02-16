@@ -3,7 +3,7 @@ import json, os, sys
 import google.generativeai as genai
 from datetime import datetime
 
-# 1. [System] 레이아웃 및 폰트 시인성 극대화 (v7.8)
+# 1. [System] 레이아웃 및 폰트 시인성 극대화 (v7.9 Final)
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="collapsed")
 
 # --- AI Intel Layer ---
@@ -23,18 +23,19 @@ def get_ai_intel(prompt):
         return response.text.replace("\n", " ").strip() if response.text else "[대기 중]"
     except: return "[타임아웃]"
 
-# 2. [UI/UX] 불사신 CSS: 블랙아웃 프로토콜 (v7.8)
+# 2. [UI/UX] 불사신 CSS: 절대 블랙아웃 (v7.9 Final Victory)
 st.markdown("""
     <style>
-    /* 불필요 요소 박멸 */
+    /* 1. 불필요 요소 박멸 */
     [data-testid="stSidebar"], [data-testid="stSidebarNav"], .stDeployButton { display: none !important; }
     
-    /* 1. 전역 다크 락다운 */
+    /* 2. 전역 다크 락다운 */
     .stApp { background-color: #0A0E14 !important; color: #FFFFFF !important; }
     .block-container { padding: 2rem 3rem !important; max-width: 98% !important; }
     
-    /* 2. [v7.8 핵심] 모든 버튼 시각적 봉쇄 (Blackout CSS) */
-    .stButton>button, .stPopover>button { 
+    /* 3. [v7.9 최후 통첩] 모든 종류의 버튼 및 팝오버 트리거 시각적 봉쇄 */
+    /* st.button, st.popover, secondary button 모두 타겟팅 */
+    .stButton button, .stPopover button, div[data-testid="stPopover"] > button, .st-emotion-cache-19rxjzo { 
         background-color: #0E1117 !important; 
         color: #39FF14 !important; 
         border: 1px solid #39FF14 !important; 
@@ -43,14 +44,24 @@ st.markdown("""
         width: 100% !important;
         height: 32px !important;
         font-size: 11px !important;
+        box-shadow: none !important;
     }
-    .stButton>button:hover, .stPopover>button:hover { 
+    
+    /* 호버 시 색상 반전 활성 */
+    .stButton button:hover, .stPopover button:hover, div[data-testid="stPopover"] > button:hover { 
         background-color: #39FF14 !important; 
         color: #000000 !important; 
         border-color: #39FF14 !important;
     }
+
+    /* 팝오버 내부 박스 전용 스타일 */
+    div[data-testid="stPopoverContent"] {
+        background-color: #161B22 !important;
+        border: 1px solid #30363D !important;
+        color: #FFFFFF !important;
+    }
     
-    /* 3. 타이포그래피 인양 (v7.8) */
+    /* 타이포그래피 인양 (v7.9) */
     .issuer-name { font-size: 13px !important; color: #8B949E; width: 85px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .product-name { font-size: 15px !important; font-weight: 900; color: #FFFFFF; flex-grow: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     
@@ -58,7 +69,6 @@ st.markdown("""
     .v7-title { font-size: 14px; font-weight: 900; color: #FFFFFF; border-left: 5px solid #39FF14; padding-left: 10px; margin-bottom: 15px; text-transform: uppercase; }
     .list-row { display: flex; align-items: center; height: 32px; gap: 10px; width: 100%; border-bottom: 1px solid #21262D; }
 
-    /* 4. 헤더 캡션 */
     .stCaption { color: #8B949E !important; font-weight: 700 !important; }
     </style>
 """, unsafe_allow_html=True)
@@ -97,12 +107,12 @@ def handle_action(itm, action, qty=0):
     st.rerun()
 
 # --- Main Command Center ---
-st.markdown("<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v7.8 무결성 마스터]</span></h2>", unsafe_allow_html=True)
+st.markdown("<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v7.9 최후의 무결성 빌드]</span></h2>", unsafe_allow_html=True)
 portfolio = load_j(P_FILE)
 etfs = load_j(ETF_FILE)
 upcs = sorted(load_j(UPC_FILE), key=lambda x: x.get('listing_date', '9999-12-31'))
 
-ai_rep = get_ai_intel(f"유닛: {len(portfolio)}. 지휘소 블랙아웃 프로토콜 가동.")
+ai_rep = get_ai_intel(f"유닛: {len(portfolio)}. 모든 화이트아웃 요소 숙청 완료.")
 st.markdown(f'<div style="background:rgba(255,49,49,0.05); border:1px solid #FF3131; padding:20px; border-radius:10px; margin-bottom:35px; color:#FF3131; font-weight:900;">🚨 AI Intel: {ai_rep} </div>', unsafe_allow_html=True)
 
 tabs = st.tabs(["📊 시장 감시", "📅 상장 일정", "🚨 위험 통제"])
@@ -136,10 +146,9 @@ with tabs[0]: # Market Watch (60 Unit Influx + Knife-Edge Alignment)
             st.markdown("</div>", unsafe_allow_html=True)
 
 with tabs[1]: # Upcoming (Ghost Prevention Logic)
-    st.markdown("<div style='font-size:16px; font-weight:900; margin-bottom:20px;'>📅 하이퍼 자산 투하 일정 (v7.8 이중 검증)</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:16px; font-weight:900; margin-bottom:20px;'>📅 하이퍼 자산 투하 일정 (v7.9 컬러 락다운)</div>", unsafe_allow_html=True)
     u_cols = st.columns(4)
     for i, itm in enumerate(upcs):
-        # [v7.8 핵심] 예약 상태 이중 검증 (티커 + 상태)
         is_reserved = any(p['symbol'] == itm['ticker'] and p['status'] == "예약 중" for p in portfolio)
         with u_cols[i % 4]:
             st.markdown(f"<div style='background:#FFD700;color:#000;padding:2px 8px;border-radius:4px;font-weight:900;font-size:10px;width:fit-content;margin-bottom:5px;'>📅 {itm['listing_date']}</div>", unsafe_allow_html=True)
@@ -199,4 +208,4 @@ with tabs[2]: # Risk Control (Commander Columns [5:5 Split])
                 st.write("정말 예약을 취소하시겠습니까?")
                 if st.button("예, 취소합니다", key=f"can_res_{p['symbol']}"): handle_action(p, "CANCEL")
 
-st.markdown(f"<div style='text-align:center;margin-top:50px;font-size:10px;color:#484F58;'>Hyper ETF Guardian v7.8 | Final Integrity Build | Mission Optimized</div>", unsafe_allow_html=True)
+st.markdown(f"<div style='text-align:center;margin-top:50px;font-size:10px;color:#484F58;'>Hyper ETF Guardian v7.9 | Final Integrity Build | Mission Optimized</div>", unsafe_allow_html=True)
