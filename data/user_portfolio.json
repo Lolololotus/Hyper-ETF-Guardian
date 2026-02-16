@@ -1,21 +1,5 @@
 [
   {
-    "symbol": "455850",
-    "name": "SOL AI반도체소부장",
-    "purchase_price": 22350,
-    "status": "추적 중",
-    "loss": -3.5000000000000004,
-    "cur": 21567.75
-  },
-  {
-    "symbol": "396500",
-    "name": "TIGER 반도체TOP10",
-    "purchase_price": 14551,
-    "status": "추적 중",
-    "loss": -3.499999999999999,
-    "cur": 14041.715
-  },
-  {
     "symbol": "500210",
     "name": "TIGER 온디바이스 AI 인프라",
     "purchase_price": 0,
@@ -49,31 +33,6 @@
     "status": "추적 중",
     "loss": -3.5000000000000004,
     "cur": 10132.5
-  },
-  {
-    "symbol": "500120",
-    "name": "KODEX 미국 테크 밸류업",
-    "purchase_price": 0,
-    "status": "대기",
-    "listing_date": "2026-02-18",
-    "loss": 0.0,
-    "cur": 10000.0
-  },
-  {
-    "symbol": "396500",
-    "name": "TIGER 반도체TOP10",
-    "purchase_price": 14551,
-    "status": "추적 중",
-    "loss": -3.499999999999999,
-    "cur": 14041.715
-  },
-  {
-    "symbol": "360750",
-    "name": "TIGER 미국S&P500",
-    "purchase_price": 14346,
-    "status": "추적 중",
-    "loss": -3.500000000000004,
-    "cur": 13843.89
   },
   {
     "symbol": "500350",
