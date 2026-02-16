@@ -52,7 +52,7 @@ st.markdown("""
     .v6-box { background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 25px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
     .v6-title { font-size: 14px; font-weight: 900; margin-bottom: 20px; color: #FFFFFF !important; padding-left: 12px; text-transform: uppercase; }
     
-    .stButton>button { background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 32px !important; border-radius: 6px !important; font-size: 11px !important; letter-spacing: -0.8px !important; width: 100% !important; }
+    .stButton>button { background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 32px !important; border-radius: 6px !important; font-size: 10px !important; letter-spacing: -1px !important; width: 100% !important; white-space: nowrap !important; }
     .stButton>button:hover { background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; }
     
     .risk-box { background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 20px; border-radius: 10px; margin-bottom: 35px; color: #FF3131 !important; font-weight: 900; font-size: 14px; }
@@ -155,7 +155,7 @@ with tabs[0]:
                 total_rendered += 1
                 pk = f"mw_{idx}_{itm['symbol']}"
                 is_t = any(p['symbol'] == itm['symbol'] for p in portfolio)
-                rc = st.columns([0.3, 2.0, 3.8, 1.3, 1.4])
+                rc = st.columns([0.3, 1.2, 3.0, 1.3, 3.0])
                 with rc[0]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;color:#8B949E;font-size:11px;">{r+1}</div>', unsafe_allow_html=True)
                 with rc[1]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;color:#8B949E;font-size:10px;">{itm["issuer"]}</div>', unsafe_allow_html=True)
                 with rc[2]: st.markdown(f'<div style="height:32px;display:flex;align-items:center;font-size:11px;font-weight:700;overflow:hidden;white-space:nowrap;">{itm["name"]}</div>', unsafe_allow_html=True)
