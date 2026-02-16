@@ -1,0 +1,37 @@
+[
+    {
+        "listing_date": "2026-02-18",
+        "name": "KODEX 미국 테크 밸류업",
+        "issuer": "삼성",
+        "ticker": "500120",
+        "theme": "미국 빅테크 + 주주환원"
+    },
+    {
+        "listing_date": "2026-02-18",
+        "name": "TIGER 온디바이스 AI 인프라",
+        "issuer": "미래에셋",
+        "ticker": "500210",
+        "theme": "AI 반도체 및 인프라"
+    },
+    {
+        "listing_date": "2026-02-20",
+        "name": "SOL 미국 국채 월배당(20년+)",
+        "issuer": "신한",
+        "ticker": "500350",
+        "theme": "금리 인하 수혜 + 현금흐름"
+    },
+    {
+        "listing_date": "2026-02-20",
+        "name": "ACE 글로벌 빅테크 TOP7",
+        "issuer": "한투",
+        "ticker": "500420",
+        "theme": "글로벌 초우량주 집중 투자"
+    },
+    {
+        "listing_date": "2026-02-24",
+        "name": "KBSTAR KRX 밸류업 지수",
+        "issuer": "KB",
+        "ticker": "500510",
+        "theme": "정부 정책 수혜 핵심주"
+    }
+]

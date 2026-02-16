@@ -34,82 +34,102 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # 데이터 로드
-@st.cache_data
-def load_etf_data():
-    with open('data/etf_list.json', 'r', encoding='utf-8') as f:
+def load_json(path):
+    if not os.path.exists(path): return []
+    with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-etf_data = load_etf_data()
-df = pd.DataFrame(etf_data)
+def save_json(path, data):
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+etf_data = load_json('data/etf_list.json')
+upcoming_data = load_json('data/upcoming_etf.json')
+portfolio_data = load_json('data/user_portfolio.json')
 
 # 로고 및 타이틀
 st.title("🛡️ Hyper ETF Guardian")
 st.subheader("No Prose, Just Precision.")
 
-col1, col2 = st.columns([1, 1])
+tabs = st.tabs(["📊 Market Watch", "📅 Upcoming", "🚨 My Defense Line"])
 
-with col1:
-    st.header("📊 Market Watch")
-    # 테이블 출력 및 구매 버튼 시뮬레이션
+with tabs[0]:
+    st.header("실시간 시장 감시")
+    df = pd.DataFrame(etf_data)
     for index, row in df.iterrows():
-        c1, c2, c3 = st.columns([2, 2, 1])
+        c1, c2, c3 = st.columns([3, 2, 1])
         c1.write(f"**{row['name']}** ({row['symbol']})")
         c2.write(f"{row['price_at_listing']:,} KRW")
-        if c3.button("TRACK", key=f"btn_{row['symbol']}"):
-             st.success(f"{row['name']} 감시 시작!")
-             # 포트폴리오 저장 로직 (MVP)
-             portfolio = {"symbol": row['symbol'], "purchase_price": row['price_at_listing']}
-             with open('data/user_portfolio.json', 'w') as f:
-                 json.dump([portfolio], f)
+        if c3.button("TRACK", key=f"market_{row['symbol']}"):
+             # 즉시 추적 시작
+             new_entry = {
+                 "symbol": row['symbol'], 
+                 "name": row['name'],
+                 "purchase_price": row['price_at_listing'],
+                 "status": "추적 중"
+             }
+             portfolio_data.append(new_entry)
+             save_json('data/user_portfolio.json', portfolio_data)
+             st.success(f"{row['name']} 추적 리스트 편입.")
 
-with col2:
-    st.header("📈 Technical Chart")
-    # TradingView Widget (HTML)
+with tabs[1]:
+    st.header("상장 대기 중 - 당신의 방어선을 예약하십시오.")
+    up_df = pd.DataFrame(upcoming_data)
+    for index, row in up_df.iterrows():
+        c1, c2, c3 = st.columns([3, 2, 1])
+        c1.write(f"**{row['name']}** ({row['issuer']})")
+        c2.write(f"📅 상장 예정일: {row['listing_date']}")
+        if c3.button("PRE-CHECK", key=f"pre_{row['ticker']}"):
+             # 예약 상태로 저장
+             new_entry = {
+                 "symbol": row['ticker'],
+                 "name": row['name'],
+                 "purchase_price": 0, # 상장 시 결정
+                 "status": "대기",
+                 "listing_date": row['listing_date']
+             }
+             portfolio_data.append(new_entry)
+             save_json('data/user_portfolio.json', portfolio_data)
+             st.info(f"{row['name']} 상장 예약 완료.")
+
+with tabs[2]:
+    st.header("실시간 감시 중 - 원칙 이탈 시 즉각 보고합니다.")
+    if portfolio_data:
+        p_df = pd.DataFrame(portfolio_data)
+        st.table(p_df)
+    else:
+        st.write("감시 중인 포트폴리오가 없습니다.")
+
+    st.divider()
+    st.subheader("🛠️ Admin Simulation")
+    col_sim1, col_sim2 = st.columns(2)
+    
+    if col_sim1.button("🔥 FORCE ALERT TEST"):
+        st.error("!!! [EMERGENCY] 손절가 도달 알림 시뮬레이션 작동 !!!")
+        st.balloons()
+    
+    if col_sim2.button("⚡ EXECUTE VIRTUAL BUY (Feb 18)"):
+        # 2월 18일 상장 예정 종목을 '대기'에서 '추적 중'으로 전환
+        mutated = False
+        for item in portfolio_data:
+            if item.get("status") == "대기" and item.get("listing_date") == "2026-02-18":
+                item["status"] = "추적 중"
+                item["purchase_price"] = 10000 # 가상 시초가
+                mutated = True
+        if mutated:
+            save_json('data/user_portfolio.json', portfolio_data)
+            st.success("2/18 상장 종목이 '추적 중' 상태로 자동 전환되었습니다. (시초가 10,000원 설정)")
+            st.rerun()
+        else:
+            st.warning("예약된 2/18 종목이 없습니다.")
+
+# Technical Chart Section (Sidebar or Bottom)
+with st.sidebar:
+    st.header("📈 Chart View")
     st.components.v1.html("""
-        <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container">
-          <div id="tradingview_chart"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-          <script type="text/javascript">
-          new TradingView.MediumWidget(
-          {
-          "symbols": [
-            [
-              "KOSPI:069500|1D"
-            ]
-          ],
-          "chartOnly": false,
-          "width": "100%",
-          "height": 400,
-          "locale": "ko",
-          "colorTheme": "dark",
-          "gridLineColor": "rgba(42, 46, 57, 0)",
-          "fontColor": "#787B86",
-          "isTransparent": false,
-          "autosize": true,
-          "showFloatingTooltip": true,
-          "showVolume": false,
-          "scalePosition": "no",
-          "scaleMode": "Normal",
-          "fontFamily": "Trebuchet MS, sans-serif",
-          "noTimeScale": false,
-          "chartType": "Area",
-          "lineColor": "#2962FF",
-          "bottomColor": "rgba(41, 98, 255, 0)",
-          "topColor": "rgba(41, 98, 255, 0.3)",
-          "container_id": "tradingview_chart"
-        }
-          );
-          </script>
-        </div>
-        <!-- TradingView Widget END -->
-    """, height=450)
-
-st.divider()
-
-# My Defense Line & 시뮬레이션
-st.header("🚨 My Defense Line")
-if st.button("🔥 FORCE ALERT TEST", type="primary"):
-    st.error("!!! [EMERGENCY] 손절가 도달 알림 시뮬레이션 작동 !!!")
-    st.write("Telegram: [Hyper Guardian] KODEX 200 손절가(-10.5%) 도달. 즉시 대응 요망.")
-    st.balloons()
+        <div id="tradingview_chart"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        new TradingView.MediumWidget({"symbols": [["KOSPI:069500|1D"]],"chartOnly": false,"width": "100%","height": 400,"locale": "ko","colorTheme": "dark","container_id": "tradingview_chart"});
+        </script>
+    """, height=420)
