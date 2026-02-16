@@ -83,7 +83,7 @@ etfs = l_j('data/etf_list.json')
 upcs = l_j('data/upcoming_etf.json')
 
 # --- Header Layer ---
-st.markdown(m("<h2 style='margin:0;'>📊 Hyper ETF Guardian <span style='font-size:12px;color:#39FF14;font-weight:400;'>[v6.5 LOCALIZED]</span></h2>"), unsafe_allow_html=True)
+st.markdown(m("<h2 style='margin:0;'>📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;font-weight:400;'>[v6.5 최종 마스터]</span></h2>"), unsafe_allow_html=True)
 st.markdown(m("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>정비 완료. 한국형 자산 방어 관제탑 v6.5.</p>"), unsafe_allow_html=True)
 
 d_c = len([p for p in portfolio if p.get('status') == '위험'])
@@ -111,7 +111,7 @@ with st.sidebar:
     if st.button("데이터 초기화"): s_j('data/user_portfolio.json', []); st.rerun()
 
 # --- Strategic Dashboard (Tabs) ---
-tabs = st.tabs(["📊 시장 감시 (Market Watch)", "📅 상장 일정 (Upcoming)", "🚨 위험 통제 (Control Room)"])
+tabs = st.tabs(["📊 시장 감시", "📅 상장 일정", "🚨 위험 통제"])
 
 # Tab 1: Market Watch (5-Stage Master Ratio Protocol)
 with tabs[0]:
@@ -172,7 +172,7 @@ with tabs[1]:
             for m_i, itm in enumerate(ui):
                 with st.container():
                     pr = next((p for p in portfolio if p['symbol'] == itm['ticker']), None)
-                    st.markdown(m(f'<div class="cal-item"><div style="font-size:10px;color:#8B949E;font-weight:700;">{itm["issuer"]} | {itm["ticker"]}</div><div style="font-size:14px;font-weight:900;margin:8px 0;height:40px;overflow:hidden;">{itm["name"]}</div><div style="font-size:12px;color:#39FF14;font-weight:900;">시작가: 10,000 KRW</div>'), unsafe_allow_html=True)
+                    st.markdown(m(f'<div class="cal-item"><div style="font-size:10px;color:#8B949E;font-weight:700;">{itm["issuer"]} | {itm["ticker"]}</div><div style="font-size:14px;font-weight:900;margin:8px 0;height:40px;overflow:hidden;">{itm["name"]}</div><div style="font-size:12px;color:#39FF14;font-weight:900;">시작가: 10,000원</div>'), unsafe_allow_html=True)
                     if pr:
                         st.markdown(m(f"<div style='font-size:11px;color:#FFFF33;font-weight:900;margin-top:10px;'>🔢 예약 수량: {pr.get('quantity', 0)} 주</div>"), unsafe_allow_html=True)
                         if st.button("예약 취소", key=f"can_{itm['ticker']}_{k}"):
@@ -222,4 +222,4 @@ with tabs[2]:
                 portfolio = [p for p in portfolio if p['symbol'] != itm['symbol']]; s_j('data/user_portfolio.json', portfolio); st.rerun()
             st.markdown(m('</div>'), unsafe_allow_html=True)
 
-st.markdown(m("<div style='color:#484F58;font-size:11px;text-align:center;margin-top:100px;'>Hyper ETF Guardian v6.5 [Localization Patch]<br>Master Ratio Architecture / Intelligence: Gemini 2.0 Flash</div>"), unsafe_allow_html=True)
+st.markdown(m("<div style='color:#484F58;font-size:11px;text-align:center;margin-top:100px;'>하이퍼 ETF 가디언 v6.5 [최종 마스터 빌드]<br>마스터 비율 레이아웃 / 지능: 제미나이 2.0 플래시</div>"), unsafe_allow_html=True)
