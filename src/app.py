@@ -59,6 +59,11 @@ def save_json(path, data):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+def get_status_class(status):
+    if status == "대기": return "badge-standby"
+    if status == "추적 중": return "badge-tracking"
+    return "badge-danger"
+
 etf_list = load_json('data/etf_list.json')
 upcoming_list = load_json('data/upcoming_etf.json')
 portfolio = load_json('data/user_portfolio.json')
