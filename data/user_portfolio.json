@@ -66,5 +66,17 @@
     "listing_date": "2026-02-18",
     "loss": 0.0,
     "cur": 10000.0
+  },
+  {
+    "symbol": "396500",
+    "name": "TIGER 반도체TOP10",
+    "purchase_price": 14551,
+    "status": "추적 중"
+  },
+  {
+    "symbol": "270810",
+    "name": "KBSTAR 코스닥150",
+    "purchase_price": 18820,
+    "status": "추적 중"
   }
 ]
