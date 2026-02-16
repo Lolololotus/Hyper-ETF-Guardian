@@ -158,11 +158,20 @@ with tabs[0]:
             for i, sym in enumerate(recs):
                 item = next((e for e in etf_list if e['symbol'] == sym), None)
                 if item:
+                    cur_p = next((p for p in portfolio if p['symbol'] == item['symbol']), None)
                     with ai_cols[i % 3]:
                         st.markdown(f'<div class="etf-card"><div style="color:#8B949E;font-size:10px;">{item["issuer"]} | AI</div><div style="font-size:16px;font-weight:bold;color:#39FF14;margin:8px 0;">{item["name"]}</div><div style="font-size:20px;font-weight:900;">{item["price_at_listing"]:,} KRW</div></div>', unsafe_allow_html=True)
-                        st.markdown('<div class="pre-check-btn">', unsafe_allow_html=True)
-                        st.button("TRACK", key=f"mw_ai_{item['symbol']}_AI", on_click=lambda s=item['symbol'], n=item['name'], p=item['price_at_listing']: portfolio.append({"symbol":s,"name":n,"purchase_price":p,"status":"추적 중"}) or save_json('data/user_portfolio.json', portfolio))
-                        st.markdown('</div>', unsafe_allow_html=True)
+                        if cur_p:
+                            st.markdown('<div class="tracked-btn">', unsafe_allow_html=True)
+                            if st.button("✓ TRACKED", key=f"mw_ai_in_{item['symbol']}_AI"):
+                                portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
+                            st.markdown('</div>', unsafe_allow_html=True)
+                        else:
+                            st.markdown('<div class="pre-check-btn">', unsafe_allow_html=True)
+                            if st.button("TRACK", key=f"mw_ai_add_{item['symbol']}_AI"):
+                                portfolio.append({"symbol":item['symbol'],"name":item['name'],"purchase_price":item['price_at_listing'],"status":"추적 중"})
+                                save_json('data/user_portfolio.json', portfolio); st.rerun()
+                            st.markdown('</div>', unsafe_allow_html=True)
         st.divider()
 
     # Strategy Sections 4
@@ -177,7 +186,8 @@ with tabs[0]:
                 st.markdown(f'<div class="etf-card"><div style="color:#8B949E;font-size:10px;">{item["issuer"]}</div><div style="font-size:15px;font-weight:bold;color:white;margin:7px 0;">{item["name"]}</div><div style="font-size:18px;font-weight:900;">{item["price_at_listing"]:,} KRW</div></div>', unsafe_allow_html=True)
                 if cur_p:
                     st.markdown('<div class="tracked-btn">', unsafe_allow_html=True)
-                    st.button("✓ TRACKED", key=f"mw_in_{item['symbol']}_{cat_name}", disabled=True)
+                    if st.button("✓ TRACKED", key=f"mw_in_{item['symbol']}_{cat_name}"):
+                        portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
                     st.markdown('</div>', unsafe_allow_html=True)
                 else:
                     st.markdown('<div class="pre-check-btn">', unsafe_allow_html=True)
@@ -242,5 +252,7 @@ with tabs[2]:
         st.subheader("⏳ Standby Protocol (상장 예정)")
         for item in standby:
             st.markdown(f'<div class="etf-card" style="min-height:auto;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><span class="badge badge-standby">STANDBY</span><span style="font-size:14px;font-weight:bold;color:white;margin-left:8px;">{item["name"]}</span></div><div style="color:#FFFF33;font-size:10px;font-weight:bold;">📅 {item.get("listing_date")}</div></div></div>', unsafe_allow_html=True)
+            if st.button("CANCEL RESERVATION", key=f"ctrl_can_{item['symbol']}_CTRL"):
+                portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
 
-st.markdown("<div style='color:#484F58;font-size:10px;text-align:center;margin-top:40px;'>Hyper ETF Guardian v3.2 [Emergency Recovery Build]<br>Intelligence: Gemini 2.0 Flash / SnF Ecosystem Restoration</div>", unsafe_allow_html=True)
+st.markdown("<div style='color:#484F58;font-size:10px;text-align:center;margin-top:40px;'>Hyper ETF Guardian v3.3 [Ultimate Integrity Build]<br>Intelligence: Gemini 2.0 Flash / SnF Ecosystem Restoration</div>", unsafe_allow_html=True)
