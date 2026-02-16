@@ -92,7 +92,12 @@ with tabs[0]:
     for idx, item in enumerate(etf_list):
         existing_item = next((p for p in portfolio if p['symbol'] == item['symbol']), None)
         with cols[idx % 3]:
-            st.markdown(f"""<div class="etf-card"><div style="color: #8B949E; font-size: 11px;">{item['issuer']}</div><div style="font-size: 19px; font-weight: bold; margin-bottom: 15px;">{item['name']}</div><div style="font-size: 24px; color: #FFFFFF; margin-bottom: 20px;">{item['price_at_listing']:,} <span style="font-size: 13px; color: #8B949E;">KRW</span></div>""", unsafe_allow_html=True)
+            st.markdown(f"""
+                <div class="etf-card">
+                    <div style="color: #8B949E; font-size: 11px;">{item['issuer']}</div>
+                    <div style="font-size: 19px; font-weight: bold; margin-bottom: 15px;">{item['name']}</div>
+                    <div style="font-size: 24px; color: #FFFFFF; margin-bottom: 20px;">{item['price_at_listing']:,} <span style="font-size: 13px; color: #8B949E;">KRW</span></div>
+            """, unsafe_allow_html=True)
             if existing_item:
                 st.markdown('<div class="tracked-btn">', unsafe_allow_html=True)
                 if st.button("✓ TRACKED", key=f"tracked_btn_{item['symbol']}"):
@@ -110,13 +115,20 @@ with tabs[0]:
             st.markdown("</div>", unsafe_allow_html=True)
 
 with tabs[1]:
+    st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 현재 버전은 BETA 모드입니다. 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 예약한 종목을 상장 즉시 <strong>'0.1초 자동 매수'</strong>하는 풀-오토 시스템을 제공할 예정입니다.</div>""", unsafe_allow_html=True)
     st.markdown("### 상장 대기 중 - 당신의 방어선을 예약하십시오.")
     cols = st.columns(3)
     for idx, item in enumerate(upcoming_list):
         is_reserved = any(p['symbol'] == item['ticker'] for p in portfolio)
         confirm_key = f"confirm_cancel_{item['ticker']}"
         with cols[idx % 3]:
-            st.markdown(f"""<div class="etf-card"><div class='badge badge-standby'>STANDBY</div><div style="color: #8B949E; font-size: 11px;">{item['issuer']} | {item['theme']}</div><div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">{item['name']}</div><div style="font-size: 13px; color: #FFFF33; margin-bottom: 15px;">📅 Listing: {item['listing_date']}</div>""", unsafe_allow_html=True)
+            st.markdown(f"""
+                <div class="etf-card">
+                    <div class='badge badge-standby'>STANDBY</div>
+                    <div style="color: #8B949E; font-size: 11px;">{item['issuer']} | {item['theme']}</div>
+                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">{item['name']}</div>
+                    <div style="font-size: 13px; color: #FFFF33; margin-bottom: 15px;">📅 Listing: {item['listing_date']}</div>
+            """, unsafe_allow_html=True)
             
             if is_reserved:
                 # 취소 컨펌 모드 체크
@@ -149,7 +161,8 @@ with tabs[1]:
             st.markdown("</div>", unsafe_allow_html=True)
 
 with tabs[2]:
-    st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 원칙(-10%) 이탈 즉시 자동 매도하는 <strong>'Full-Auto' 방어 시스템</strong>을 준비 중입니다.</div><div style="margin-bottom: 25px;"><h3 style="margin-bottom: 5px;">실시간 감시 통제실</h3><p style="color: #8B949E; font-size: 13px;">My Defense Line은 당신의 자산을 실시간으로 수호합니다.</p></div>""", unsafe_allow_html=True)
+    st.markdown("""<div class="vision-banner"><strong>[BETA Vision]</strong> 현재 버전은 BETA 모드입니다. 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 당신의 자산이 원칙(-10.0%)을 이탈한 즉시 <strong>'자동 매도'</strong>하는 Full-Auto 방어 시스템을 제공할 예정입니다.</div>""", unsafe_allow_html=True)
+    st.markdown("""<div style="margin-bottom: 25px;"><h3 style="margin-bottom: 5px;">실시간 감시 통제실</h3><p style="color: #8B949E; font-size: 13px;">My Defense Line은 당신의 자산을 실시간으로 수호합니다.</p></div>""", unsafe_allow_html=True)
     if not portfolio:
         st.info("현재 감시 중인 종목이 없습니다.")
     else:
@@ -158,7 +171,21 @@ with tabs[2]:
             if purchase_price == 0: purchase_price = 10000
             cur_price = purchase_price * (0.965 if item['status'] == '추적 중' else 0.88 if item['status'] == '위험' else 1.0)
             loss_rate = calculate_loss_rate(cur_price, purchase_price)
-            st.markdown(f"""<div class="etf-card"><div style="display: flex; justify-content: space-between; align-items: start;"><div><div class='badge {get_status_class(item['status'])}'>{item['status']}</div><div style="font-size: 19px; font-weight: bold; color: #FFFFFF;">{item['name']} <span style="font-size: 13px; color: #484F58;">({item['symbol']})</span></div></div><div style="text-align: right;"><div style="font-size: 30px; font-weight: 900; color: {'#FF3131' if loss_rate <= -10 else '#39FF14'}; line-height: 1;">{loss_rate:+.1f}%</div><div style="font-size: 15px; font-weight: bold; color: #FFFFFF; margin-top: 5px;">{int(cur_price):,} KRW</div></div></div>{render_gauge(loss_rate) if item['status'] != '대기' else ''}</div>""", unsafe_allow_html=True)
+            st.markdown(f"""
+                <div class="etf-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <div class='badge {get_status_class(item['status'])}'>{item['status']}</div>
+                            <div style="font-size: 19px; font-weight: bold; color: #FFFFFF;">{item['name']} <span style="font-size: 13px; color: #484F58;">({item['symbol']})</span></div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 30px; font-weight: 900; color: {'#FF3131' if loss_rate <= -10 else '#39FF14'}; line-height: 1;">{loss_rate:+.1f}%</div>
+                            <div style="font-size: 15px; font-weight: bold; color: #FFFFFF; margin-top: 5px;">{int(cur_price):,} KRW</div>
+                        </div>
+                    </div>
+                    {render_gauge(loss_rate) if item['status'] != '대기' else ''}
+                </div>
+            """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.image("https://via.placeholder.com/150x50/161B22/39FF14?text=HYPER+GUARD", use_container_width=True)
