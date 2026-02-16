@@ -92,11 +92,11 @@ st.markdown(m(f'<div class="risk-box">🚨 {ai_rep} </div>'), unsafe_allow_html=
 
 met = st.columns(4)
 def m_b(l,v,c="#39FF14"): return f'<div style="background:#161B22;border:1px solid #30363D;border-radius:12px;padding:20px;text-align:center;"><div style="color:#8B949E;font-size:10px;margin-bottom:8px;font-weight:700;">{l}</div><div style="font-size:22px;font-weight:900;color:{c};">{v}</div></div>'
-met[0].markdown(m(m_b("추적 자산", f"{len(portfolio)} UNITS")), unsafe_allow_html=True)
+met[0].markdown(m(m_b("추적 자산", f"{len(portfolio)} 유닛")), unsafe_allow_html=True)
 sh = sum(calculate_loss_rate(p.get('purchase_price',10000)*0.95, p.get('purchase_price',10000)) for p in portfolio) / len(portfolio) if portfolio else 0
 met[1].markdown(m(m_b("평균 방어력", f"{sh:+.2f}%", "#FF3131" if sh<0 else "#39FF14")), unsafe_allow_html=True)
-met[2].markdown(m(m_b("방어선 돌파", f"{d_c} UNITS", "#FF3131" if d_c else "#39FF14")), unsafe_allow_html=True)
-met[3].markdown(m(m_b("상장 예정", f"{len(upcs)} UNITS", "#FFFF33")), unsafe_allow_html=True)
+met[2].markdown(m(m_b("방어선 돌파", f"{d_c} 유닛", "#FF3131" if d_c else "#39FF14")), unsafe_allow_html=True)
+met[3].markdown(m(m_b("상장 예정", f"{len(upcs)} 유닛", "#FFFF33")), unsafe_allow_html=True)
 
 st.divider()
 
