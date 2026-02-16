@@ -72,7 +72,7 @@ st.markdown("""
         box-shadow: 0 0 10px rgba(255, 49, 49, 0.3);
     }
 
-    /* 버튼 스타일 가리는 기존 Streamlit 스타일 시트 무시 */
+    /* 버튼 스타일 */
     .stButton>button {
         width: 100%;
         background-color: #39FF14 !important;
@@ -87,18 +87,36 @@ st.markdown("""
         transform: scale(1.02);
     }
     
+    /* 비활성화/추적된 버튼 스타일 */
+    .tracked-btn>button {
+        background-color: #21262D !important;
+        color: #8B949E !important;
+        border: 1px solid #30363D !important;
+    }
+    
     /* 게이지바 커스텀 */
     .gauge-container {
         width: 100%;
         background-color: #21262D;
         border-radius: 5px;
-        height: 10px;
+        height: 12px;
         margin-top: 15px;
+        position: relative;
     }
     .gauge-fill {
         height: 100%;
         border-radius: 5px;
         transition: width 0.5s ease-in-out;
+    }
+    
+    .beta-banner {
+        background-color: rgba(57, 255, 20, 0.05);
+        border: 1px solid #39FF14;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        color: #B0B0B0;
+        font-size: 14px;
     }
 
     /* 사이드바 */
@@ -112,8 +130,12 @@ st.markdown("""
 # 데이터 유틸리티
 def load_json(path):
     if not os.path.exists(path): return []
-    with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            content = f.read().strip()
+            if not content: return []
+            return json.loads(content)
+    except Exception: return []
 
 def save_json(path, data):
     with open(path, 'w', encoding='utf-8') as f:
@@ -132,17 +154,16 @@ def get_status_class(status):
 
 def render_gauge(loss_rate):
     # -10%면 100%, 0%면 0%로 표현 (방어선 근접도)
-    # loss_rate는 음수값임 (예: -5.0)
     percent = min(100, max(0, (abs(loss_rate) / 10.0) * 100))
     color = "#39FF14" if abs(loss_rate) < 5 else "#FFA500" if abs(loss_rate) < 8 else "#FF3131"
     return f"""
+        <div style="font-size: 12px; color: #B0B0B0; margin-top: 10px;">📉 손절 방어선까지 남은 거리</div>
         <div class="gauge-container">
             <div class="gauge-fill" style="width: {percent}%; background-color: {color};"></div>
         </div>
-        <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top:5px; color: #8B949E;">
-            <span>SAFE</span>
-            <span>{loss_rate:.1f}%</span>
-            <span>DEFENSE (-10%)</span>
+        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top:5px; color: #8B949E; font-weight: bold;">
+            <span>SAFE (0%)</span>
+            <span style="color: #FF3131;">-10% (CRITICAL)</span>
         </div>
     """
 
@@ -157,6 +178,7 @@ with tabs[0]:
     st.markdown("### 실시간 시장 감시")
     cols = st.columns(3)
     for idx, item in enumerate(etf_list):
+        is_tracked = any(p['symbol'] == item['symbol'] for p in portfolio)
         with cols[idx % 3]:
             st.markdown(f"""
                 <div class="etf-card">
@@ -165,8 +187,16 @@ with tabs[0]:
                     <div style="font-size: 24px; color: #FFFFFF; margin-bottom: 4px;">{item['price_at_listing']:,} <span style="font-size: 14px; color: #8B949E;">KRW</span></div>
                 </div>
             """, unsafe_allow_html=True)
-            if st.button("TRACK", key=f"track_{item['symbol']}"):
-                if not any(p['symbol'] == item['symbol'] for p in portfolio):
+            
+            btn_label = "✓ TRACKED" if is_tracked else "TRACK"
+            btn_key = f"track_{item['symbol']}"
+            
+            if is_tracked:
+                st.markdown(f'<div class="tracked-btn">', unsafe_allow_html=True)
+                st.button(btn_label, key=btn_key, disabled=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+            else:
+                if st.button(btn_label, key=btn_key):
                     portfolio.append({
                         "symbol": item['symbol'],
                         "name": item['name'],
@@ -174,12 +204,21 @@ with tabs[0]:
                         "status": "추적 중"
                     })
                     save_json('data/user_portfolio.json', portfolio)
-                    st.toast(f"{item['name']} 추적 시작")
+                    st.toast("✅ 트래킹이 시작되었습니다.")
+                    st.rerun()
 
 with tabs[1]:
+    st.markdown("""
+        <div class="beta-banner">
+            <strong>[BETA 명세]</strong><br>
+            현재 버전은 BETA 모드입니다. 추후 정식 업데이트를 통해 증권사 계좌와 직접 연동, 
+            예약한 종목을 상장 즉시 '0.1초 자동 매수'하는 풀-오토 시스템을 제공할 예정입니다.
+        </div>
+    """, unsafe_allow_html=True)
     st.markdown("### 상장 대기 중 - 당신의 방어선을 예약하십시오.")
     cols = st.columns(3)
     for idx, item in enumerate(upcoming_list):
+        is_reserved = any(p['symbol'] == item['ticker'] for p in portfolio)
         with cols[idx % 3]:
             st.markdown(f"""
                 <div class="etf-card">
@@ -189,8 +228,16 @@ with tabs[1]:
                     <div style="font-size: 14px; color: #FFFF33;">📅 Listing: {item['listing_date']}</div>
                 </div>
             """, unsafe_allow_html=True)
-            if st.button("PRE-CHECK", key=f"pre_{item['ticker']}"):
-                if not any(p['symbol'] == item['ticker'] for p in portfolio):
+            
+            btn_label = "✓ RESERVED" if is_reserved else "PRE-CHECK"
+            btn_key = f"pre_{item['ticker']}"
+            
+            if is_reserved:
+                st.markdown(f'<div class="tracked-btn">', unsafe_allow_html=True)
+                st.button(btn_label, key=btn_key, disabled=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+            else:
+                if st.button(btn_label, key=btn_key):
                     portfolio.append({
                         "symbol": item['ticker'],
                         "name": item['name'],
@@ -199,21 +246,32 @@ with tabs[1]:
                         "listing_date": item['listing_date']
                     })
                     save_json('data/user_portfolio.json', portfolio)
-                    st.toast(f"{item['name']} 예약 완료")
+                    st.toast("📅 상장 예약이 완료되었습니다.")
+                    st.rerun()
 
 with tabs[2]:
-    st.markdown("### 실시간 감시 중 - 원칙 이탈 시 즉각 보고합니다.")
+    st.markdown("""
+        <div style="margin-bottom: 20px;">
+            <h3 style="margin-bottom: 5px;">실시간 감시 통제실</h3>
+            <p style="color: #8B949E; font-size: 14px;">My Defense Line은 당신의 자산이 원칙(-10%)을 이탈하는지 실시간으로 감시하는 통제실입니다.</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
     if not portfolio:
         st.info("현재 감시 중인 종목이 없습니다.")
     else:
         for item in portfolio:
             # 가상 변동률 생성 (시뮬레이션용)
-            cur_price = item.get('purchase_price', 10000)
-            if item['status'] == '추적 중':
-                 # 시뮬레이션을 위해 약간 하락 상황 연출 (-3%)
-                 cur_price = cur_price * 0.97
+            purchase_price = item.get('purchase_price', 10000)
+            if purchase_price == 0: purchase_price = 10000 # 대기 종목 가상 가격
             
-            loss_rate = calculate_loss_rate(cur_price, item.get('purchase_price', 10000)) if item.get('purchase_price', 0) > 0 else 0
+            cur_price = purchase_price
+            if item['status'] == '추적 중':
+                 cur_price = purchase_price * 0.965 # -3.5% 상황 연출
+            elif item['status'] == '위험':
+                 cur_price = purchase_price * 0.88 # -12.0% 상황 연출
+            
+            loss_rate = calculate_loss_rate(cur_price, purchase_price)
             
             st.markdown(f"""
                 <div class="etf-card">
@@ -223,8 +281,8 @@ with tabs[2]:
                             <div style="font-size: 20px; font-weight: bold;">{item['name']} <span style="font-size: 14px; color: #8B949E;">({item['symbol']})</span></div>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-size: 22px; font-weight: bold;">{int(cur_price):,} KRW</div>
-                            <div style="font-size: 14px; color: {'#FF3131' if loss_rate < 0 else '#39FF14'};">{loss_rate:+.2f}%</div>
+                            <div style="font-size: 28px; font-weight: 900; color: {'#FF3131' if loss_rate <= -10 else '#39FF14'};">{loss_rate:+.1f}%</div>
+                            <div style="font-size: 16px; font-weight: bold; color: #FFFFFF;">{int(cur_price):,} KRW</div>
                         </div>
                     </div>
                     {render_gauge(loss_rate) if item['status'] != '대기' else ''}
@@ -237,8 +295,7 @@ with st.sidebar:
     st.header("🛠️ 제어 센터")
     
     with st.expander("시뮬레이션 제어"):
-        if st.button("🔥 FORCE ALERT TEST (DANGER)"):
-            # 가존 포트폴리오 첫 종목을 강제로 위험 상태로 변경
+        if st.button("🔥 FORCE ALERT (DANGER)"):
             if portfolio:
                 portfolio[0]['status'] = '위험'
                 save_json('data/user_portfolio.json', portfolio)
@@ -256,6 +313,11 @@ with st.sidebar:
                 save_json('data/user_portfolio.json', portfolio)
                 st.success("2/18 종목 자동 매수 전환 완료")
                 st.rerun()
+        
+        if st.button("♻️ RESET PORTFOLIO"):
+            save_json('data/user_portfolio.json', [])
+            st.warning("포트폴리오가 초기화되었습니다.")
+            st.rerun()
 
     st.divider()
     st.header("📈 실시간 기술 차트")

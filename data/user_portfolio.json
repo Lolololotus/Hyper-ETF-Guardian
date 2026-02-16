@@ -49,5 +49,25 @@
     "purchase_price": 0,
     "status": "대기",
     "listing_date": "2026-02-24"
+  },
+  {
+    "symbol": "500120",
+    "name": "KODEX 미국 테크 밸류업",
+    "purchase_price": 0,
+    "status": "대기",
+    "listing_date": "2026-02-18"
+  },
+  {
+    "symbol": "500420",
+    "name": "ACE 글로벌 빅테크 TOP7",
+    "purchase_price": 0,
+    "status": "대기",
+    "listing_date": "2026-02-20"
+  },
+  {
+    "symbol": "069500",
+    "name": "KODEX 200",
+    "purchase_price": 81860,
+    "status": "추적 중"
   }
 ]
