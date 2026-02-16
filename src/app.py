@@ -87,7 +87,7 @@ st.markdown(m("<h2 style='margin:0;'>📊 하이퍼 ETF 가디언 <span style='f
 st.markdown(m("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>정비 완료. 한국형 자산 방어 관제탑 v6.5.</p>"), unsafe_allow_html=True)
 
 d_c = len([p for p in portfolio if p.get('status') == '위험'])
-ai_rep = get_ai_intel(f"Units: {len(portfolio)} | Threat Level: {d_c}. Localization complete.")
+ai_rep = get_ai_intel(f"유닛: {len(portfolio)} | 위험 자산: {d_c}. 현지화 완료.")
 st.markdown(m(f'<div class="risk-box">🚨 {ai_rep} </div>'), unsafe_allow_html=True)
 
 met = st.columns(4)

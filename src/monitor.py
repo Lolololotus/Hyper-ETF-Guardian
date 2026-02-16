@@ -12,10 +12,10 @@ def Trigger_Alert(symbol, loss_rate):
     """
     알림 발생 함수: 특정 조건 도달 시 마케팅/전략적 알림 송출
     """
-    alert_msg = f"[ALERT: -10% Limit Exceeded] 종목: {symbol} | 현재 손실률: {loss_rate:.2f}%"
-    print(f"--- EXTERNAL NOTIFICATION TRIGGERED ---")
-    print(f"Telegram: {alert_msg}")
-    print(f"Email: [Hyper Guardian] Emergency Liquidate Call for {symbol}")
+    alert_msg = f"[알림: -10% 손실 제한 초과] 종목: {symbol} | 현재 손실률: {loss_rate:.2f}%"
+    print(f"--- 외부 알림 트리거 활성화 ---")
+    print(f"텔레그램: {alert_msg}")
+    print(f"이메일: [하이퍼 가디언] {symbol} 종목 긴급 손절 권고")
     print(f"---------------------------------------")
     logging.error(alert_msg)
 
@@ -37,7 +37,7 @@ def monitor_etf(item, current_price):
     purchase_price = item.get("purchase_price", 0)
 
     if status == "대기":
-        logging.info(f"Skipping {symbol}: Status is [대기] (Not yet listed or bought)")
+        logging.info(f"건너뜀 {symbol}: 상태가 [대기]임 (상장 전 또는 매수 전)")
         return status
 
     if purchase_price <= 0:
@@ -45,7 +45,7 @@ def monitor_etf(item, current_price):
         return status
 
     loss_rate = calculate_loss_rate(current_price, purchase_price)
-    msg = f"Monitoring {symbol}: Price={current_price}, Buy={purchase_price}, Loss={loss_rate:.2f}%"
+    msg = f"감시 중 {symbol}: 현재가={current_price}, 매수가={purchase_price}, 손실률={loss_rate:.2f}%"
     logging.info(msg)
     
     # -10% 이하일 때 트리거 및 상태 변경
