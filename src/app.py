@@ -21,34 +21,34 @@ def get_ai_intel(prompt):
         return response.text.replace("\n", " ").strip()
     except Exception: return "[Risk: 5.0 / Cause: Error / Rec: Manual Check]"
 
-# --- Absolute Physical Constraint Mastery: [v6.3 MICRO-DETAIL OPTIMIZATION] ---
+# --- Absolute Physical Constraint Mastery: [v6.4 FINAL SPACE LIBERATION] ---
 def m(h): return h.replace("\n", "").strip()
 
 st.markdown(m(f"""
 <style>
-/* Global Lockdown */
+/* Global Lockdown & Typography */
 .stApp {{background-color: #0A0E14 !important; color: #FFFFFF !important;}}
-h1,h2,h3,h4,h5,h6,p,span,label,div,li {{color: #FFFFFF !important; font-family: 'Inter', sans-serif !important;}}
+h1,h2,h3,h4,h5,h6,p,span,label,div,li {{color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.5px !important;}}
 
-/* Master Box: Micro-Detail Spacing Patch v6.3 */
-.v6-box {{background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 18px !important; margin-bottom: 55px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); overflow: hidden !important;}}
-.v6-title {{font-size: 16px; font-weight: 900; margin-bottom: 20px; color: #FFFFFF !important; border-left: 5px solid #39FF14; padding-left: 12px; text-transform: uppercase; white-space: nowrap !important;}}
+/* Master Box: Final Space Liberation v6.4 */
+.v6-box {{background-color: #161B22 !important; border: 1px solid #30363D !important; border-radius: 12px; padding: 25px !important; margin-bottom: 80px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.5); overflow: hidden !important;}}
+.v6-title {{font-size: 16px; font-weight: 900; margin-bottom: 25px; color: #FFFFFF !important; border-left: 5px solid #39FF14; padding-left: 15px; text-transform: uppercase; white-space: nowrap !important;}}
 
-/* Row Protocol: No-Wrap Flex */
-.v6-row {{display: flex; justify-content: space-between; align-items: center; width: 100%; height: 42px; white-space: nowrap !important; overflow: hidden !important;}}
-.v6-item {{display: flex; align-items: center; white-space: nowrap !important; overflow: hidden !important; height: 34px;}}
+/* Row Protocol: Physical No-Wrap */
+.v6-row {{display: flex; justify-content: space-between; align-items: center; width: 100%; height: 44px; white-space: nowrap !important; overflow: hidden !important;}}
+.v6-item {{display: flex; align-items: center; white-space: nowrap !important; overflow: hidden !important; height: 36px;}}
 .v6-ellipsis {{overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;}}
 
-/* Button Force: Elastic Integrity v6.3 */
-.stButton>button {{background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 34px !important; border-radius: 6px !important; font-size: 10px !important; letter-spacing: 0.5px; transition: all 0.1s ease; width: 100% !important; min-width: 95px !important; padding: 0 8px !important; white-space: nowrap !important; overflow: visible !important;}}
+/* Button Force: High-Integrity Elasticity */
+.stButton>button {{background-color: #1E2329 !important; color: #FFFFFF !important; border: 1px solid #484F58 !important; font-weight: 900 !important; min-height: 34px !important; border-radius: 6px !important; font-size: 10px !important; transition: all 0.1s ease; width: 100% !important; min-width: 95px !important; padding: 0 8px !important; white-space: nowrap !important; overflow: visible !important;}}
 .stButton>button:hover {{background-color: #30363D !important; border-color: #39FF14 !important; color: #39FF14 !important; opacity: 0.9;}}
 
-/* Upcoming Terminal Stability */
-.cal-header {{font-size: 16px; font-weight: 900; color: #39FF14 !important; border-bottom: 2px solid #39FF14; padding: 10px 0; margin-bottom: 0px;}}
-.cal-item {{background: #161B22; border: 1px solid #30363D; border-radius: 10px; padding: 18px; margin-top: 15px; border-left: 5px solid #FFFF33; min-height: 180px; overflow: hidden;}}
+/* Upcoming Terminal */
+.cal-header {{font-size: 16px; font-weight: 900; color: #39FF14 !important; border-bottom: 2px solid #39FF14; padding: 12px 0; margin-bottom: 0px;}}
+.cal-item {{background: #161B22; border: 1px solid #30363D; border-radius: 10px; padding: 22px; margin-top: 15px; border-left: 5px solid #FFFF33; min-height: 190px; overflow: hidden;}}
 
 /* Risk Panel */
-.risk-box {{background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 18px; border-radius: 10px; margin-bottom: 30px; color: #FF3131 !important; font-weight: 900; font-size: 14px;}}
+.risk-box {{background: rgba(255,49,49,0.05); border: 1px solid #FF3131; padding: 20px; border-radius: 10px; margin-bottom: 35px; color: #FF3131 !important; font-weight: 900; font-size: 14px;}}
 
 #MainMenu, footer, .stDeployButton {{display: none !important;}}
 div.block-container {{padding-top: 2rem !important;}}
@@ -76,11 +76,11 @@ etfs = l_j('data/etf_list.json')
 upcs = l_j('data/upcoming_etf.json')
 
 # --- Header Layer ---
-st.markdown(m("<h2 style='margin:0;'>📊 Hyper ETF Guardian <span style='font-size:12px;color:#39FF14;font-weight:400;'>[v6.3 MICRO-REFINED]</span></h2>"), unsafe_allow_html=True)
-st.markdown(m("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>Command Center. Golden Ratio Structural Integrity.</p>"), unsafe_allow_html=True)
+st.markdown(m("<h2 style='margin:0;'>📊 Hyper ETF Guardian <span style='font-size:12px;color:#39FF14;font-weight:400;'>[v6.4 LIBERATION]</span></h2>"), unsafe_allow_html=True)
+st.markdown(m("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>Command Center. Final Spatial Integrity System.</p>"), unsafe_allow_html=True)
 
 d_c = len([p for p in portfolio if p.get('status') == '위험'])
-ai_rep = get_ai_intel(f"Units: {len(portfolio)} | Threat Level: {d_c}. v6.3 optimization active.")
+ai_rep = get_ai_intel(f"Units: {len(portfolio)} | Threat Level: {d_c}. Liberation Protocol v6.4 active.")
 st.markdown(m(f'<div class="risk-box">🚨 {ai_rep} </div>'), unsafe_allow_html=True)
 
 met = st.columns(4)
@@ -106,7 +106,7 @@ with st.sidebar:
 # --- Strategic Dashboard (Tabs) ---
 tabs = st.tabs(["📊 Market Watch", "📅 Upcoming", "🚨 Control Room"])
 
-# Tab 1: Market Watch (5-Stage Single Line Protocol)
+# Tab 1: Market Watch (5-Stage Master Ratio Protocol)
 with tabs[0]:
     themes = {
         "AI & Semiconductor Strategy": ["AI", "반도체", "NVIDIA", "HBM"],
@@ -123,7 +123,7 @@ with tabs[0]:
             if i + j < len(th_l):
                 tn, tk = th_l[i+j]
                 with cols[j]:
-                    st.markdown(m(f'<div class="v6-box"><div style="font-size:16px;font-weight:900;margin-bottom:20px;color:#FFFFFF;border-left:5px solid #39FF14;padding-left:12px;">{tn}</div>'), unsafe_allow_html=True)
+                    st.markdown(m(f'<div class="v6-box"><div class="v6-title">{tn}</div>'), unsafe_allow_html=True)
                     tp = []
                     se_e = set()
                     for e in pool:
@@ -133,18 +133,19 @@ with tabs[0]:
                             if e['symbol'] not in se_e: tp.append(e); se_e.add(e['symbol'])
                             if len(tp) >= 10: break
                     
-                    # Row Implementation (v6.3 Micro-Refinement)
+                    # Row Implementation (v6.4 Master Ratio)
                     for r, itm in enumerate(tp[:10]):
                         pk = f"mw_{tn}_{itm['symbol']}_{r+1}"
                         is_t = any(p['symbol'] == itm['symbol'] for p in portfolio)
                         
-                        # [Golden Ratio Column Alignment v6.3]
-                        # 0.3 | 1.8 | 3.8 | 1.4 | 1.4
-                        rc = st.columns([0.3, 1.8, 3.8, 1.4, 1.4])
-                        rc[0].markdown(m(f'<div style="height:34px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:12px;">{r+1}</div>'), unsafe_allow_html=True)
-                        rc[1].markdown(m(f'<div style="height:34px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:11px;">{itm["issuer"]}</div>'), unsafe_allow_html=True)
-                        rc[2].markdown(m(f'<div style="height:34px;display:flex;align-items:center;font-weight:700;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{itm["name"][:18]}</div>'), unsafe_allow_html=True)
-                        rc[3].markdown(m(f'<div style="height:34px;display:flex;align-items:center;justify-content:flex-end;font-weight:900;color:#39FF14;font-size:12px;">{itm["price_at_listing"]:,}</div>'), unsafe_allow_html=True)
+                        # [Master Column Ratio v6.4]
+                        # 0.3 | 2.0 | 3.5 | 1.5 | 1.5
+                        rc = st.columns([0.3, 2.0, 3.5, 1.5, 1.5])
+                        rc[0].markdown(m(f'<div style="height:36px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:12px;">{r+1}</div>'), unsafe_allow_html=True)
+                        rc[1].markdown(m(f'<div style="height:36px;display:flex;align-items:center;font-weight:900;color:#8B949E;font-size:11px;">{itm["issuer"]}</div>'), unsafe_allow_html=True)
+                        # Slicing reduced to 16 for liberation
+                        rc[2].markdown(m(f'<div style="height:36px;display:flex;align-items:center;font-weight:700;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{itm["name"][:16]}</div>'), unsafe_allow_html=True)
+                        rc[3].markdown(m(f'<div style="height:36px;display:flex;align-items:center;justify-content:flex-end;font-weight:900;color:#39FF14;font-size:12px;">{itm["price_at_listing"]:,}</div>'), unsafe_allow_html=True)
                         with rc[4]:
                             if is_t:
                                 if st.button("UNTRACK", key=f"utk_{pk}"):
@@ -202,7 +203,7 @@ with tabs[2]:
         if not au: st.info("Clear.")
         for idx, itm in enumerate(au):
             lr = itm['lr']
-            st.markdown(m(f'<div class="v6-box" style="padding:18px;margin-bottom:15px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><span style="background:{"#FF3131" if lr<=-8 else "#39FF14"};color:#0A0E14;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;margin-right:12px;">{itm["status"]}</span><b style="font-size:16px;">{itm["name"]}</b></div><div style="font-size:24px;font-weight:900;color:{"#FF3131" if lr<=-8 else "#39FF14"};">{lr:+.1f}%</div></div>'), unsafe_allow_html=True)
+            st.markdown(m(f'<div class="v6-box" style="padding:22px;margin-bottom:20px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><span style="background:{"#FF3131" if lr<=-8 else "#39FF14"};color:#0A0E14;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;margin-right:12px;">{itm["status"]}</span><b style="font-size:16px;">{itm["name"]}</b></div><div style="font-size:24px;font-weight:900;color:{"#FF3131" if lr<=-8 else "#39FF14"};">{lr:+.1f}%</div></div>'), unsafe_allow_html=True)
             rs = 10.0 + lr; wf = min(100, (abs(lr)/10.0)*100); rc = "#39FF14" if rs>5 else "#FFA500" if rs>2 else "#FF3131"
             st.markdown(m(f'<div style="font-size:10px;color:#8B949E;margin-top:10px;">Burn: {abs(lr):.1f}% | Integrity: {rs:+.1f}%</div><div style="width:100%;height:8px;background:#21262D;border-radius:4px;margin-top:8px;"><div style="width:{wf}%;height:100%;background:{rc};border-radius:4px;"></div></div>'), unsafe_allow_html=True)
             if st.button("TERMINATE UNIT", key=f"ki_{itm['symbol']}"):
@@ -214,9 +215,9 @@ with tabs[2]:
         pu.sort(key=lambda x: x.get('listing_date', '9999-12-31'))
         if not pu: st.info("Clear.")
         for idx, itm in enumerate(pu):
-            st.markdown(m(f'<div class="v6-box" style="padding:18px;margin-bottom:15px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><span style="background:#FFFF33;color:#0A0E14;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;margin-right:12px;">PENDING</span><b style="font-size:16px;">{itm["name"]}</b></div><div style="font-size:12px;color:#8B949E;text-align:right;">📅 {itm.get("listing_date")}<br>🔢 {itm.get("quantity",0)} UNIT</div></div>'), unsafe_allow_html=True)
+            st.markdown(m(f'<div class="v6-box" style="padding:22px;margin-bottom:20px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><span style="background:#FFFF33;color:#0A0E14;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;margin-right:12px;">PENDING</span><b style="font-size:16px;">{itm["name"]}</b></div><div style="font-size:12px;color:#8B949E;text-align:right;">📅 {itm.get("listing_date")}<br>🔢 {itm.get("quantity",0)} UNIT</div></div>'), unsafe_allow_html=True)
             if st.button("ABORT SEQUENCE", key=f"ab_{itm['symbol']}"):
                 portfolio = [p for p in portfolio if p['symbol'] != itm['symbol']]; s_j('data/user_portfolio.json', portfolio); st.rerun()
             st.markdown(m('</div>'), unsafe_allow_html=True)
 
-st.markdown(m("<div style='color:#484F58;font-size:11px;text-align:center;margin-top:100px;'>Hyper ETF Guardian v6.3 [Micro-Detail Optimization]<br>Golden Ratio / Intelligence: Gemini 2.0 Flash</div>"), unsafe_allow_html=True)
+st.markdown(m("<div style='color:#484F58;font-size:11px;text-align:center;margin-top:100px;'>Hyper ETF Guardian v6.4 [Final Space Liberation]<br>Master Ratio / Intelligence: Gemini 2.0 Flash</div>"), unsafe_allow_html=True)
