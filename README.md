@@ -1,36 +1,54 @@
-# 🛡️ Hyper ETF Guardian (하이퍼 ETF 가디언)
+# 🛡️ Hyper ETF Guardian [BETA Vision]
 
-> **"Built in 12 Hours with AI-Workforce"**
-> 
-> 2월 17일 오전 제출용 ETF 손절 알림 MVP 웹사이트입니다. "No Prose, Just Precision." 원칙에 따라 군더더기 없는 데이터와 정확한 알림을 제공합니다.
+> **"No Prose, Just Precision."**  
+> (군더더기 없는 데이터가 당신의 평온을 보호합니다.)
 
-## 🚀 Key Workflow (Sequence Diagram)
+---
 
-```mermaid
-sequenceDiagram
-    participant User as 👤 유저
-    participant DB as 📅 Upcoming List
-    participant App as 🛡️ Hyper Guardian
-    participant Monitor as 🚨 Monitor Engine
+## 🚀 Core Defense Protocol
 
-    User->>DB: 상장 예정 ETF 확인 (Pre-Check)
-    User->>App: 예약 버튼 클릭 (Reserved)
-    App->>App: 상장일 09:01 가상 자동 매수 실행
-    App->>Monitor: 감시 모드 전환 (Tracking)
-    Monitor->>Monitor: 실시간 가격 변동률 계산
-    Note over Monitor: Loss Rate <= -10% 포착
-    Monitor->>User: 즉각 손절 알림 트리거 (Alert!)
+우리 서비스의 핵심은 감정을 배제한 **기계적 손절 로직**에 있습니다. 자본의 변동성으로부터 유저의 사유 밀도를 보호하기 위해 아래의 프로토콜을 준수합니다.
+
+### Loss-cut Trigger
+$$Loss \ Rate = \left( \frac{Price_{current} - Price_{purchase}}{Price_{purchase}} \right) \times 100 \le -10.0\%$$
+
+**Protocol:** 조건 충족 시 0.1초 내 즉각적인 **DANGER** 알림을 발송하며, 향후 정식 버전에서는 'Full-Auto' 매도 집행을 통해 자산을 자동 보호할 예정입니다.
+
+---
+
+## 🍃 SnF Ecosystem: The Restoration Journey
+
+우리는 기술에 침탈당한 인간의 사유를 본래 주인에게 되돌려주는 **'인양(Restoration)'**의 여정을 설계합니다.
+
+*   ☁️ **Sense Your Day**: 서양의 점성술과 동양의 사주명리학을 결합하여 오늘의 나를 온전히 감각하게 하는 정서적 안식처입니다.
+*   🪞 **Double-Mirror**: AI와의 동기화(Sync)와 인간적 이탈(Identity)을 동시 측정하여 자신의 존재가 서있는 위치를 증명합니다.
+*   🛡️ **Hyper ETF Guardian**: 자본의 변동성으로부터 일상의 평온을 보호합니다. 5대 운용사의 ETF 데이터를 실시간 추적하고 기계적 손절(-10%) 알림을 통해 사유를 방해하는 현실적 불안을 차단하는 방어 프로토콜입니다.
+*   💎 **Prism-Arcana**: 내면의 사유를 빛의 예술인 스테인드글라스로 형상화하여 소유 가능한 실물 자산으로 치환합니다.
+*   🌳 **Taste Tree**: 파편화된 개인의 취향을 가드닝하여 전지구적 공동체를 이루는 연결의 여정입니다.
+*   🏰 **Deep-Reso**: 밈과 유행어가 깊이를 대체하는 시대에 인간 고유의 사유 밀도를 보호하고 증명하는 최후의 요새입니다.
+
+---
+
+## ⚓ Hyper-Blitz Roadmap (12h Develop Log)
+
+우리가 12시간 동안 달성한 하이퍼-디벨롭 로그입니다.
+
+| Time | Milestone | Action |
+| :--- | :--- | :--- |
+| **2026-02-16 14:00** | **[Genesis]** | 하드컷 방어 프로토콜 설계 및 데이터 엔진 구축 |
+| **2026-02-16 19:30** | **[UX Overhaul]** | 네온 카드 UI 도입 및 실시간 손절 게이지 시스템 구현 |
+| **2026-02-16 21:30** | **[Final Verification]** | 로컬 무결성 검증, </div> 버그 픽스 및 최종 비전 주입 완료 |
+
+---
+
+## 🛠️ Stack & Execution
+- **Core**: Python 3.11, Streamlit
+- **Finance**: FinanceDataReader, TradingView Widget
+- **Workforce**: Antigravity (Lead Developer), Lotus (Marketer/PM)
+
+```bash
+# 로컬 실행 가이드
+python -m streamlit run src/app.py
 ```
 
-## 핵심 원칙
-- **"No Prose, Just Precision."** (군더더기 없는 데이터와 정확한 알림)
-
-## 폴더 구조
-- `data/`: ETF 리스트 및 관련 데이터 (JSON)
-- `src/`: 알림 로직 및 모니터링 소스 코드
-- `assets/`: 정적 리소스 및 문서
-
-## 기술 스택
-- Python / Node.js
-- FinanceDataReader
-- GitHub Actions (예정)
+"우리는 숫자가 아닌, 당신의 평온한 사유를 추적합니다."
