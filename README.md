@@ -12,7 +12,15 @@
 ### Loss-cut Trigger
 $$Loss \ Rate = \left( \frac{Price_{current} - Price_{purchase}}{Price_{purchase}} \right) \times 100 \le -10.0\%$$
 
-**Protocol:** 조건 충족 시 0.1초 내 즉각적인 **DANGER** 알림을 발송하며, 향후 정식 버전에서는 'Full-Auto' 매도 집행을 통해 자산을 자동 보호할 예정입니다.
+**Protocol:** 조건 충족 시 **DANGER** 알림을 발송하며, 리스크 우선순위($$Risk \ Priority$$) 정렬을 통해 위협을 실시간 최상단에 배치합니다.
+
+---
+
+## 🤖 Intelligence: Gemini 2.0 Flash Engine
+
+우리의 대시보드는 이제 **Gemini 2.0 Flash**를 탑재한 지능형 관제 플랫폼으로 격상되었습니다.
+- **Smart Category Generator**: 유저의 테마를 퀀트 전문가의 시각으로 분석하여 관련 ETF를 실시간 매핑합니다.
+- **Risk Narrative**: 포트폴리오의 상태를 한 문장의 예리한 인사이트로 요약 보고합니다.
 
 ---
 
@@ -29,21 +37,20 @@ $$Loss \ Rate = \left( \frac{Price_{current} - Price_{purchase}}{Price_{purchase
 
 ---
 
-## ⚓ Hyper-Blitz Roadmap (12h Develop Log)
-
-우리가 12시간 동안 달성한 하이퍼-디벨롭 로그입니다.
+## ⚓ Hyper-Blitz Roadmap (Final Build)
 
 | Time | Milestone | Action |
 | :--- | :--- | :--- |
 | **2026-02-16 14:00** | **[Genesis]** | 하드컷 방어 프로토콜 설계 및 데이터 엔진 구축 |
-| **2026-02-16 19:30** | **[UX Overhaul]** | 네온 카드 UI 도입 및 실시간 손절 게이지 시스템 구현 |
-| **2026-02-16 21:30** | **[Final Verification]** | 로컬 무결성 검증, </div> 버그 픽스 및 최종 비전 주입 완료 |
+| **2026-02-16 20:00** | **[UX Mastery]** | 네온 카드 UI 및 주간 달력 그리드(Weekly Grid) UI 구현 |
+| **2026-02-16 22:00** | **[Final Integrity]** | **Gemini 2.0 Flash** 연동 및 HTML 무결성(Zero-Tolerance) 정제 완료 |
 
 ---
 
 ## 🛠️ Stack & Execution
+- **Intelligence**: Gemini 2.0 Flash API
 - **Core**: Python 3.11, Streamlit
-- **Finance**: FinanceDataReader, TradingView Widget
+- **Finance**: FinanceDataReader
 - **Workforce**: Antigravity (Lead Developer), Lotus (Marketer/PM)
 
 ```bash

@@ -16,14 +16,6 @@
     "cur": 14041.715
   },
   {
-    "symbol": "360750",
-    "name": "TIGER 미국S&P500",
-    "purchase_price": 14346,
-    "status": "추적 중",
-    "loss": -3.500000000000004,
-    "cur": 13843.89
-  },
-  {
     "symbol": "500210",
     "name": "TIGER 온디바이스 AI 인프라",
     "purchase_price": 0,
