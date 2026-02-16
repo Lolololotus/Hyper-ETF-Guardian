@@ -15,34 +15,34 @@ genai.configure(api_key=GEMINI_API_KEY)
 def get_ai_analysis(prompt):
     try:
         model = genai.GenerativeModel('gemini-2.0-flash')
-        sys_p = "Quant Expert. Strictly No greetings. Format: [위험 지수: X / 핵심 원인: Y / 권고 사항: Z]."
+        sys_p = "Quant Expert. No greetings. Strictly: [위험 지수: X / 핵심 원인: Y / 권고 사항: Z]."
         response = model.generate_content(f"{sys_p}\n\n{prompt}")
         if not response or not response.text:
-            return "[위험 지수: 5.0 / 핵심 원인: Intelligence Offline / 권고 사항: 원칙 기반 자동 손절 대기]"
+            return "[위험 지수: 5.0 / 핵심 원인: Intelligence Offline / 권고 사항: 자산 보존 대기]"
         return response.text.replace("\n", " ").strip()
     except Exception:
-        return "[위험 지수: 5.0 / 핵심 원인: Connection Error / 권고 사항: 자산 보존 프로토콜 가동]"
+        return "[위험 지수: 5.0 / 핵심 원인: Connection Error / 권고 사항: 수동 방어 가동]"
 
-# --- Absolute Mastery CSS (Hard-coded Minification) ---
-st.markdown("<style>/* CSS Start */.stApp{background-color:#0A0E14!important;color:#FFFFFF!important;}h1,h2,h3,h4,h5,h6,p,span,label,div,li{color:#FFFFFF!important;font-family:'Inter',sans-serif!important;}input{background-color:#161B22!important;color:#FFFFFF!important;border:1px solid #30363D!important;}div[data-baseweb='input']{background-color:#161B22!important;}div[role='spinbutton']{background-color:#161B22!important;}.stButton>button{width:100%!important;background-color:#21262D!important;color:#FFFFFF!important;border:1px solid #30363D!important;font-weight:900!important;height:32px!important;border-radius:4px!important;transition:none!important;}.stButton>button:hover{border-color:#39FF14!important;color:#39FF14!important;}.list-item{background-color:#161B22;border-bottom:1px solid #21262D;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;min-height:50px;}.badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:900;margin-right:8px;}.badge-tracking{background:rgba(57,255,20,0.1);color:#39FF14!important;border:1px solid #39FF14;}.badge-standby{background:rgba(255,255,51,0.1);color:#FFFF33!important;border:1px solid #FFFF33;}.badge-danger{background:rgba(255,49,49,0.1);color:#FF3131!important;border:1px solid #FF3131;}.cal-card{background:#0D1117;border:1px solid #21262D;padding:12px;border-radius:8px;min-height:220px;}.cal-date{font-size:16px;font-weight:900;color:#FFFFFF!important;border-bottom:3px solid #39FF14;padding-bottom:5px;margin-bottom:12px;text-align:center;}.cal-entry{background:#161B22;padding:8px;border-radius:4px;margin-bottom:8px;border-left:3px solid #FFFF33;}.gauge-bg{width:100%;height:4px;background:#21262D;border-radius:2px;margin-top:6px;overflow:hidden;}.gauge-fill{height:100%;border-radius:2px;}.risk-box{background:rgba(255,49,49,0.05);border:1px solid #FF3131;padding:12px;border-radius:4px;margin-bottom:20px;color:#FF3131!important;font-weight:bold;font-size:12px;}#MainMenu,footer,.stDeployButton{display:none!important;}div.block-container{padding-top:2rem!important;}/* CSS End */</style>", unsafe_allow_html=True)
+# --- Absolute Mastery CSS (v4.1 Precision) ---
+st.markdown("<style>/* v4.1 UI Master */.stApp{background-color:#0A0E14!important;color:#FFFFFF!important;}h1,h2,h3,h4,h5,h6,p,span,label,div,li{color:#FFFFFF!important;font-family:'Inter',sans-serif!important;}/* Card Section Style */.dashboard-card{background-color:#161B22;border:1px solid #30363D;border-radius:12px;padding:20px;margin-bottom:20px;min-height:400px;}.card-title{font-size:16px;font-weight:900;color:#FFFFFF!important;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;}.item-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #21262D;font-size:12px;}.item-row:last-child{border-bottom:none;}/* Inputs & Widgets */input{background-color:#1C2128!important;color:#FFFFFF!important;border:1px solid #3E444D!important;}div[data-baseweb='input']{background-color:#1C2128!important;}.stNumberInput div{background-color:#1C2128!important;}/* Buttons */.stButton>button{width:100%!important;background-color:#21262D!important;color:#FFFFFF!important;border:1px solid #30363D!important;font-weight:900!important;height:30px!important;border-radius:6px!important;font-size:10px!important;}.stButton>button:hover{border-color:#39FF14!important;color:#39FF14!important;}/* Upcoming Fix */.cal-header{font-size:15px;font-weight:900;color:#39FF14!important;margin-bottom:5px;border-bottom:2px solid #39FF14;padding-bottom:5px;}.cal-item{background:#1C2128;border-radius:6px;padding:10px;margin-top:8px;border-left:4px solid #FFFF33;}/* Badges */.badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:8px;font-weight:900;margin-right:5px;}.badge-tracking{background:rgba(57,255,20,0.1);color:#39FF14!important;border:1px solid #39FF14;}.badge-standby{background:rgba(255,255,51,0.1);color:#FFFF33!important;border:1px solid #FFFF33;}.badge-danger{background:rgba(255,49,49,0.1);color:#FF3131!important;border:1px solid #FF3131;}/* Risk Gauge */.g-bg{width:100%;height:4px;background:#21262D;border-radius:2px;margin-top:6px;}.g-fill{height:100%;border-radius:2px;}.risk-box{background:rgba(255,49,49,0.05);border:1px solid #FF3131;padding:12px;border-radius:6px;margin-bottom:20px;color:#FF3131!important;font-weight:900;font-size:12px;}#MainMenu,footer,.stDeployButton{display:none!important;}div.block-container{padding-top:1.5rem!important;}</style>", unsafe_allow_html=True)
 
 # --- Data Utility ---
-def load_json(path):
-    if not os.path.exists(path): return []
+def load_json(p):
+    if not os.path.exists(p): return []
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(p, 'r', encoding='utf-8') as f:
             c = f.read().strip(); return json.loads(c) if c else []
     except Exception: return []
 
-def save_json(path, data):
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+def save_json(p, d):
+    with open(p, 'w', encoding='utf-8') as f:
+        json.dump(d, f, indent=2, ensure_ascii=False)
 
 # Load data and ensure integrity
-raw_port = load_json('data/user_portfolio.json')
+p_raw = load_json('data/user_portfolio.json')
 portfolio = []
 seen = set()
-for item in raw_port:
+for item in p_raw:
     if item['symbol'] not in seen:
         portfolio.append(item)
         seen.add(item['symbol'])
@@ -50,114 +50,122 @@ for item in raw_port:
 etf_list = load_json('data/etf_list.json')
 upcoming_list = load_json('data/upcoming_etf.json')
 
-# --- Header Section ---
-st.markdown("<h2 style='margin:0;'>📊 Hyper ETF Guardian <span style='font-size:12px;color:#39FF14;font-weight:400;'>[v4.0 MASTER]</span></h2>", unsafe_allow_html=True)
-st.markdown("<p style='color:#8B949E;font-size:13px;margin:-5px 0 20px 0;'>No Prose, Just Precision.</p>", unsafe_allow_html=True)
+# --- Header ---
+st.markdown("<h2 style='margin:0;'>📊 Hyper ETF Guardian <span style='font-size:11px;color:#39FF14;font-weight:400;'>[v4.1 PRECISION]</span></h2>", unsafe_allow_html=True)
+st.markdown("<p style='color:#8B949E;font-size:12px;margin:-5px 0 15px 0;'>Command Center: No Noise, Just Assets.</p>", unsafe_allow_html=True)
 
-# Global AI Risk
-danger_items = [p for p in portfolio if p.get('status') == '위험']
-risk_prompt = f"Portfolio Situation: {len(portfolio)} tracked, {len(danger_items)} danger. Report concisely."
-ai_report = get_ai_analysis(risk_prompt)
-st.markdown(f'<div class="risk-box"> {ai_report} </div>', unsafe_allow_html=True)
+# Risk Report
+dang = [p for p in portfolio if p.get('status') == '위험']
+rep = get_ai_analysis(f"Port:{len(portfolio)}, Danger:{len(dang)}. Analyze.")
+st.markdown(f'<div class="risk-box"> {rep} </div>', unsafe_allow_html=True)
 
-# Metrics Grid
+# --- Metrics ---
 mcols = st.columns(4)
-def tile(lbl, val, c="#39FF14"): return f'<div style="background:#161B22;border:1px solid #30363D;border-radius:6px;padding:12px;text-align:center;"><div style="color:#8B949E;font-size:10px;margin-bottom:4px;">{lbl}</div><div style="font-size:18px;font-weight:900;color:{c};">{val}</div></div>'
-mcols[0].markdown(tile("총 감시 종목", f"{len(portfolio)} UNIT"), unsafe_allow_html=True)
-avg_ret = calculate_loss_rate(sum(p.get('purchase_price',1) for p in portfolio)*0.95 if portfolio else 1, sum(p.get('purchase_price',1) for p in portfolio) if portfolio else 1)
-mcols[1].markdown(tile("평균 방어 수익률", f"{avg_ret:+.1f}%", "#FF3131" if avg_ret < 0 else "#39FF14"), unsafe_allow_html=True)
-mcols[2].markdown(tile("위험 프로토콜", f"{len(danger_items)}", "#FF3131" if danger_items else "#39FF14"), unsafe_allow_html=True)
-mcols[3].markdown(tile("상장 예정(7D)", f"{len(upcoming_list)}", "#FFFF33"), unsafe_allow_html=True)
+def t(l, v, c="#39FF14"): return f'<div style="background:#161B22;border:1px solid #30363D;border-radius:8px;padding:12px;text-align:center;"><div style="color:#8B949E;font-size:9px;margin-bottom:4px;">{l}</div><div style="font-size:17px;font-weight:900;color:{c};">{v}</div></div>'
+mcols[0].markdown(t("감시 유닛", f"{len(portfolio)} UNITS"), unsafe_allow_html=True)
+avg_l = sum(calculate_loss_rate(p.get('purchase_price',10000)*0.95, p.get('purchase_price',10000)) for p in portfolio) / len(portfolio) if portfolio else 0
+mcols[1].markdown(t("평균 방어선", f"{avg_l:+.1f}%", "#FF3131" if avg_l < 0 else "#39FF14"), unsafe_allow_html=True)
+mcols[2].markdown(t("위기 대응", f"{len(dang)} 건", "#FF3131" if dang else "#39FF14"), unsafe_allow_html=True)
+mcols[3].markdown(t("상장 예정", f"{len(upcoming_list)} 건", "#FFFF33"), unsafe_allow_html=True)
 
 st.divider()
 
 # --- Sidebar ---
 with st.sidebar:
-    st.header("🛠️ 관측 통제소")
+    st.header("🛠️ 통제 옵션")
     iss_all = ["KODEX", "TIGER", "KBSTAR", "ACE", "SOL"]
     sel_iss = [i for i in iss_all if st.checkbox(i, key=f"s_{i}")]
     final_iss = sel_iss if sel_iss else iss_all
     f_etfs = [e for e in etf_list if any(i in e['issuer'] for i in final_iss)]
-    if not f_etfs: f_etfs = etf_list[:15]
+    if not f_etfs: f_etfs = etf_list[:30]
     if st.button("♻️ RESET PORTFOLIO"): save_json('data/user_portfolio.json', []); st.rerun()
 
 # --- Tabs ---
 tabs = st.tabs(["📊 Market Watch", "📅 Upcoming", "🚨 Control Room"])
 
-# Tab 1: Market Watch (Vertical Top 10)
+# Tab 1: Market Watch (Card-Based Vertical List)
 with tabs[0]:
-    cats = {
+    themes = {
         "AI & 반도체": ["AI", "반도체", "NVIDIA", "HBM"],
-        "밸류업 / 저PBR": ["밸류업", "저PBR", "금융", "은행"],
         "미국 빅테크": ["미국", "빅테크", "나스닥", "S&P"],
-        "월배당 / 인컴": ["월배당", "배당", "인컴", "커버드콜"]
+        "밸류업 / 배당": ["밸류업", "저PBR", "배당", "인컴"],
+        "신흥 테마": ["양자", "우주", "에너지", "바이오"]
     }
-    for c_idx, (c_name, kws) in enumerate(cats.items()):
-        st.subheader(f"📌 {c_name} (Top 10)")
-        itms = [e for e in f_etfs if any(k.lower() in e['name'].lower() for k in kws)][:10]
-        if not itms: itms = etf_list[:3]
-        for idx, item in enumerate(itms):
-            is_p = any(p['symbol'] == item['symbol'] for p in portfolio)
-            st.markdown(f'<div class="list-item"><div style="flex:1;color:#8B949E;font-size:11px;">{item["issuer"]}</div><div style="flex:4;font-size:13px;font-weight:bold;">{item["name"]}</div><div style="flex:2;font-size:13px;font-weight:900;color:#39FF14;text-align:center;">{item["price_at_listing"]:,}</div></div>', unsafe_allow_html=True)
-            cc1, cc2, cc3, cc4 = st.columns([1, 5, 2, 2])
-            with cc4:
-                if is_p:
-                    if st.button("UNTRACK", key=f"mw_un_{item['symbol']}_{c_idx}_{idx}"):
-                        portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
-                else:
-                    if st.button("TRACK", key=f"mw_add_{item['symbol']}_{c_idx}_{idx}"):
-                        portfolio.append({"symbol":item['symbol'],"name":item['name'],"purchase_price":item['price_at_listing'],"status":"추적 중"})
-                        save_json('data/user_portfolio.json', portfolio); st.rerun()
-        st.markdown("<br>", unsafe_allow_html=True)
-
-# Tab 2: Upcoming (Interactive Reservation)
-with tabs[1]:
-    mon = datetime.now() - timedelta(days=datetime.now().weekday())
-    days = ["월", "화", "수", "목", "금"]; u_cols = st.columns(5)
-    for i in range(5):
-        d_str = (mon + timedelta(days=i)).strftime("%Y-%m-%d")
-        with u_cols[i]:
-            st.markdown(f'<div class="cal-card"><div class="cal-date">{days[i]} ({d_str})</div>', unsafe_allow_html=True)
-            d_itms = [e for e in upcoming_list if e['listing_date'] == d_str]
-            for j, item in enumerate(d_itms):
-                res = next((p for p in portfolio if p['symbol'] == item['ticker']), None)
-                st.markdown(f'<div class="cal-entry"><span class="badge badge-standby">STANDBY</span><div style="font-size:12px;font-weight:bold;margin:4px 0;">{item["name"]}</div>', unsafe_allow_html=True)
-                if res:
-                    st.markdown(f"<div style='font-size:10px;color:#FFFF33;'>예약가: {res['purchase_price']:,} KRW</div>", unsafe_allow_html=True)
-                    if st.button("CANCEL", key=f"up_can_{item['ticker']}_{i}_{j}"):
-                        portfolio = [p for p in portfolio if p['symbol'] != item['ticker']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
-                else:
-                    k = f"res_act_{item['ticker']}"
-                    if not st.session_state.get(k):
-                        if st.button("[PRE-CHECK]", key=f"up_pre_{item['ticker']}_{i}_{j}"): st.session_state[k]=True; st.rerun()
+    
+    # 2x2 Grid Layout for Cards
+    r1 = st.columns(2); r2 = st.columns(2)
+    card_grids = [r1[0], r1[1], r2[0], r2[1]]
+    
+    for c_idx, (t_name, kws) in enumerate(themes.items()):
+        with card_grids[c_idx]:
+            st.markdown(f'<div class="dashboard-card"><div class="card-title"><span>📌 {t_name}</span><span style="font-size:9px;color:#8B949E;">TOP 10</span></div>', unsafe_allow_html=True)
+            # 데이터 수집 (Filter + Fallback)
+            t_itms = [e for e in f_etfs if any(k.lower() in e['name'].lower() for k in kws)][:10]
+            if len(t_itms) < 3: t_itms.extend([e for e in etf_list if e not in t_itms][:10-len(t_itms)]) # 상단 10개 강제 보충
+            
+            for i, item in enumerate(t_itms):
+                is_p = any(p['symbol'] == item['symbol'] for p in portfolio)
+                # Row Render
+                st.markdown(f'<div class="item-row"><span style="color:#8B949E;width:40px;">{item["issuer"]}</span><span style="flex:1;font-weight:700;margin-left:10px;">{item["name"][:12]}</span><span style="color:#39FF14;font-weight:900;">{item["price_at_listing"]:,}</span></div>', unsafe_allow_html=True)
+                
+                # Operation Line
+                cc1, cc2 = st.columns([4, 1])
+                with cc2:
+                    if is_p:
+                        if st.button("UN", key=f"mw_u_{item['symbol']}_{c_idx}_{i}"):
+                            portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
                     else:
-                        p_val = st.number_input("희망가", min_value=0, value=10000, key=f"price_{item['ticker']}")
-                        st.markdown(f"<div style='font-size:12px;color:#39FF14;'>{p_val:,}원에 예약하시겠습니까?</div>", unsafe_allow_html=True)
-                        b1, b2 = st.columns(2)
-                        if b1.button("확정", key=f"up_ok_{item['ticker']}"):
-                            portfolio.append({"symbol":item['ticker'],"name":item['name'],"purchase_price":p_val,"status":"대기","listing_date":item['listing_date']})
-                            save_json('data/user_portfolio.json', portfolio); st.session_state[k]=False; st.rerun()
-                        if b2.button("닫기", key=f"up_cls_{item['ticker']}"): st.session_state[k]=False; st.rerun()
-                st.markdown('</div>', unsafe_allow_html=True)
+                        if st.button("TR", key=f"mw_t_{item['symbol']}_{c_idx}_{i}"):
+                            portfolio.append({"symbol":item['symbol'], "name":item['name'], "purchase_price":item['price_at_listing'], "status":"추적 중"})
+                            save_json('data/user_portfolio.json', portfolio); st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
 
-# Tab 3: Control Room (Risk Monitoring & Pending)
+# Tab 2: Upcoming (Precision Layout & Volume Logic)
+with tabs[1]:
+    mon = datetime.now() - timedelta(days=datetime.now().weekday())
+    days = ["월", "화", "수", "목", "금"]; ucols = st.columns(5)
+    for i in range(5):
+        d_str = (mon + timedelta(days=i)).strftime("%Y-%m-%d")
+        with ucols[i]:
+            st.markdown(f'<div class="cal-header">{days[i]} ({d_str})</div>', unsafe_allow_html=True)
+            d_itms = [e for e in upcoming_list if e['listing_date'] == d_str]
+            if not d_itms: st.markdown("<div style='font-size:10px;color:#484F58;padding:10px;'>NO LIST</div>", unsafe_allow_html=True)
+            for j, item in enumerate(d_itms):
+                res = next((p for p in portfolio if p['symbol'] == item['ticker']), None)
+                st.markdown(f'<div class="cal-item"><span class="badge badge-standby">STANDBY</span><div style="font-size:11px;font-weight:800;margin:4px 0;">{item["name"]}</div>', unsafe_allow_html=True)
+                if res:
+                    st.markdown(f"<div style='font-size:10px;color:#FFFF33;'>예약수량: {res.get('quantity', 0)} 주</div>", unsafe_allow_html=True)
+                    if st.button("CANCEL", key=f"up_c_{item['ticker']}_{i}_{j}"):
+                        portfolio = [p for p in portfolio if p['symbol'] != item['ticker']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
+                else:
+                    k = f"res_p_{item['ticker']}"
+                    if not st.session_state.get(k):
+                        if st.button("CHECK", key=f"up_p_{item['ticker']}_{i}_{j}"): st.session_state[k]=True; st.rerun()
+                    else:
+                        q_val = st.number_input("예약 수량(주)", min_value=1, value=10, step=1, key=f"qty_{item['ticker']}")
+                        if st.button("CONFIRM", key=f"up_o_{item['ticker']}"):
+                            portfolio.append({"symbol":item['ticker'], "name":item['name'], "quantity":q_val, "status":"대기", "listing_date":item['listing_date']})
+                            save_json('data/user_portfolio.json', portfolio); st.session_state[k]=False; st.rerun()
+                        if st.button("CLOSE", key=f"up_x_{item['ticker']}"): st.session_state[k]=False; st.rerun()
+                st.markdown('</div>', unsafe_allow_html=True)
+
+# Tab 3: Control Room (Risk Priority)
 with tabs[2]:
     st.subheader("⚠️ Monitoring Priority (Risk ASC)")
-    active = []
+    act = []
     for p in portfolio:
         if p['status'] != '대기':
             bp = p.get('purchase_price', 10000); cv = bp * (0.95 if p['status'] == '추적 중' else 0.88)
             p['loss'] = calculate_loss_rate(cv, bp); p['cur'] = cv
-            active.append(p)
-    active.sort(key=lambda x: x['loss'])
-    if not active: st.info("활성 모니터링 대상이 없습니다.")
-    for i, item in enumerate(active):
+            act.append(p)
+    act.sort(key=lambda x: x['loss'])
+    if not act: st.info("감시 대상 없음.")
+    for i, item in enumerate(act):
         l = item['loss']
-        st.markdown(f'<div class="list-item"><div><span class="badge {"badge-danger" if l <= -8 else "badge-tracking"}">{item["status"]}</span><b>{item["name"]} ({item["symbol"]})</b></div><div style="text-align:right;"><span style="font-size:18px;font-weight:900;color:{"#FF3131" if l <= -8 else "#39FF14"};">{l:+.1f}%</span><div style="font-size:10px;color:#8B949E;">{int(item["cur"]):,} KRW</div></div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="list-item"><div><span class="badge {"badge-danger" if l <= -8 else "badge-tracking"}">{item["status"]}</span><b>{item["name"]}</b></div><div style="text-align:right;"><span style="font-size:18px;font-weight:900;color:{"#FF3131" if l <= -8 else "#39FF14"};">{l:+.1f}%</span></div></div>', unsafe_allow_html=True)
         rem = 10.0 + l; clr = "#39FF14" if rem > 5 else "#FFA500" if rem > 2 else "#FF3131"; wd = min(100, (abs(l)/10.0)*100)
-        st.markdown(f'<div style="font-size:10px;color:#8B949E;margin-top:8px;">방어선 잔여: <b>{rem:+.1f}%</b></div><div class="gauge-bg"><div class="gauge-fill" style="width:{wd}%;background:{clr};"></div></div>', unsafe_allow_html=True)
-        if st.button("UNTRACK PROCEED", key=f"cr_un_{item['symbol']}_{i}"):
+        st.markdown(f'<div style="font-size:10px;color:#8B949E;margin-top:4px;">방어선 잔여: <b>{rem:+.1f}%</b></div><div class="g-bg"><div class="g-fill" style="width:{wd}%;background:{clr};"></div></div>', unsafe_allow_html=True)
+        if st.button("UNTRACK", key=f"cr_u_{item['symbol']}_{i}"):
             portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -167,10 +175,10 @@ with tabs[2]:
     pend.sort(key=lambda x: x.get('listing_date', '9999-12-31'))
     for i, item in enumerate(pend):
         l1, l2, l3 = st.columns([4, 2, 1])
-        l1.markdown(f'<div style="padding:10px;background:#161B22;border-radius:4px;"><span class="badge badge-standby">STANDBY</span> <b>{item["name"]}</b> <small>({item["symbol"]})</small></div>', unsafe_allow_html=True)
-        l2.markdown(f'<div style="padding:10px;text-align:center;">📅 {item.get("listing_date")} | {item.get("purchase_price",0):,} KRW</div>', unsafe_allow_html=True)
-        with l3: # Moved the button into the third column
-            if st.button("CANCEL", key=f"cr_can_{item['symbol']}_{i}"):
+        l1.markdown(f'<div style="padding:10px;background:#161B22;border-radius:6px;"><span class="badge badge-standby">STANDBY</span> <b>{item["name"]}</b></div>', unsafe_allow_html=True)
+        l2.markdown(f'<div style="padding:10px;text-align:center;">📅 {item.get("listing_date")} | {item.get("quantity",0)} 주</div>', unsafe_allow_html=True)
+        with l3:
+            if st.button("CANCEL", key=f"cr_c_{item['symbol']}_{i}"):
                 portfolio = [p for p in portfolio if p['symbol'] != item['symbol']]; save_json('data/user_portfolio.json', portfolio); st.rerun()
 
-st.markdown("<div style='color:#484F58;font-size:10px;text-align:center;margin-top:60px;'>Hyper ETF Guardian v4.0 [The Final Master Build]<br>Intelligence: Gemini 2.0 Flash / SnF Final Restoration</div>", unsafe_allow_html=True)
+st.markdown("<div style='color:#484F58;font-size:9px;text-align:center;margin-top:60px;'>Hyper ETF Guardian v4.1 [Precision Dashboard]<br>Intelligence: Gemini 2.0 Flash / SnF Overhaul</div>", unsafe_allow_html=True)
