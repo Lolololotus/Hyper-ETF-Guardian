@@ -1,0 +1,62 @@
+[
+  {
+    "ticker": "069500",
+    "name": "KODEX 200",
+    "provider": "삼성자산운용",
+    "base_price": 81860
+  },
+  {
+    "ticker": "379810",
+    "name": "KODEX 미국나스닥100",
+    "provider": "삼성자산운용",
+    "base_price": 24181
+  },
+  {
+    "ticker": "360750",
+    "name": "TIGER 미국S&P500",
+    "provider": "미래에셋자산운용",
+    "base_price": 14346
+  },
+  {
+    "ticker": "396500",
+    "name": "TIGER 반도체TOP10",
+    "provider": "미래에셋자산운용",
+    "base_price": 14551
+  },
+  {
+    "ticker": "270810",
+    "name": "KBSTAR 코스닥150",
+    "provider": "KB자산운용",
+    "base_price": 18820
+  },
+  {
+    "ticker": "442430",
+    "name": "KBSTAR AMUNDI유럽글로벌전략액티브",
+    "provider": "KB자산운용",
+    "base_price": 10500
+  },
+  {
+    "ticker": "105190",
+    "name": "ACE 200",
+    "provider": "한국투자신탁운용",
+    "base_price": 82410
+  },
+  {
+    "ticker": "354500",
+    "name": "ACE 코스닥150",
+    "provider": "한국투자신탁운용",
+    "base_price": 19560
+  },
+  {
+    "ticker": "455850",
+    "name": "SOL AI반도체소부장",
+    "provider": "신한자산운용",
+    "base_price": 22350
+  },
+  {
+    "ticker": "481190",
+    "name": "SOL 미국테크TOP10",
+    "provider": "신한자산운용",
+    "base_price": 15425
+  }
+]
