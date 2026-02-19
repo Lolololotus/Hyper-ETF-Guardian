@@ -1,7 +1,7 @@
 import streamlit as st
 import json, os, sys
 
-# 1. [System] 레이아웃 및 보안 절대 락다운 (v11.5 Final Singularity)
+# 1. [System] 레이아웃 및 보안 절대 락다운 (v12.0 Final Launch)
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="collapsed")
 
 # 2. [UI/UX] 불사신 CSS (버튼 블랙아웃 & 게이지 & BETA 공지)
@@ -71,7 +71,7 @@ def handle_action(itm, action, qty=0):
 # 4. [Render] 대시보드 메트릭
 portfolio = l_j(P_FILE)
 etfs = l_j(E_FILE)
-st.markdown("<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v11.5 최종 무결성 마스터]</span></h2>", unsafe_allow_html=True)
+st.markdown("<h2> 📊 하이퍼 ETF 가디언 <span style='font-size:12px;color:#39FF14;'>[v12.0 최종 제출 마스터]</span></h2>", unsafe_allow_html=True)
 
 m1, m2, m3, m4 = st.columns(4)
 avg_def = 0

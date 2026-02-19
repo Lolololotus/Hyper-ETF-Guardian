@@ -58,5 +58,11 @@
     "name": "SOL 미국테크TOP10",
     "issuer": "신한자산운용",
     "price_at_listing": 15425
+  },
+  {
+    "symbol": "500210",
+    "name": "TIGER 온디바이스 AI 인프라",
+    "issuer": "미래에셋자산운용",
+    "price_at_listing": 10000
   }
 ]
