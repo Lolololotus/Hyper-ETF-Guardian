@@ -1,0 +1,27 @@
+name: AI Scout Daily Reconnaissance
+
+on:
+  schedule:
+    - cron: '0 19 * * *' # UTC 19:00 = KST 04:00
+  workflow_dispatch:
+
+jobs:
+  recon_and_update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+      - name: Run AI Scout Script
+        run: python scripts/scout.py
+      - name: Commit and Push Updates
+        run: |
+          git config --global user.name "AI-Scout"
+          git config --global user.email "scout@hyper-guardian.ai"
+          git add data/upcoming_etf.json
+          git commit -m "🚨 [v13.0] Automated Recon: New ETF Listings Found" || echo "No changes found"
+          git push
