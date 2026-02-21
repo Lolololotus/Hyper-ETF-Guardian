@@ -4,6 +4,13 @@ import json, os, sys
 # 1. [System] 레이아웃 및 보안 절대 락다운 (v12.0 Final Launch)
 st.set_page_config(page_title="Hyper ETF Guardian", layout="wide", initial_sidebar_state="collapsed")
 
+# [Security] Secrets 로드 (v13.0 Security Lockdown)
+try:
+    if "GEMINI_API_KEY" in st.secrets:
+        os.environ["GOOGLE_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+except Exception as e:
+    st.warning("⚠️ Secrets configuration missing. Check .streamlit/secrets.toml or Streamlit Cloud settings.")
+
 # 2. [UI/UX] 불사신 CSS (버튼 블랙아웃 & 게이지 & BETA 공지)
 st.markdown("""
     <style>
