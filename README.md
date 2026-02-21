@@ -18,6 +18,8 @@
 | **H+15 (17일 05:00)** | **Crisis Management** | 사이드바 제거 및 전역 상태 관리(Session State) 재건 |
 | **H+17 (17일 07:00)** | **Integrity v10.0** | 0.1초 반응형 예약-취소 워크플로우 및 손절 게이지 복구 |
 | **H+19 (17일 09:00)** | **Final Launch** | v12.0 최종 무결성 빌드 배포 및 정식 가동 선포 |
+| **D+04 (21일 16:00)** | **Security & Ops** | v12.5 Security Lockdown 및 GitHub Actions 기반 상시 가동(Keep-Awake) 시스템 구축 |
+| **D+04 (21일 19:00)** | **AI Intelligence** | v13.0 Automated Recon: AI Scout 기반 매일 오전 4시 상장 일정 자동 업데이트 체계 가동 |
 
 ---
 
@@ -38,7 +40,14 @@ $$Loss Rate = \frac{Current Price - Purchase Price}{Purchase Price} \times 100$$
 사용자의 예약 경험을 극대화하기 위해 팝오버(Popover) 기반의 3단계 상태 제어 시스템을 구축했습니다.
 * **상태 A (미예약)**: '상장 예약 ∨' 버튼 노출.
 * **상태 B (확정 액션)**: 팝오버 내 예약 클릭 시 데이터 즉시 저장 및 `st.rerun()`을 통한 물리적 창 닫기 수행.
-* **상태 C (예약 완료)**: '🚨 구매 예약 완료 ∨' 버튼으로 즉시 전환 및 취소 프로토콜 가동.
+* **상태 C (예약 완료)** : '🚨 구매 예약 완료 ∨' 버튼으로 즉시 전환 및 취소 프로토콜 가동.
+
+---
+
+## 🛡️ Data Integrity & Security Lockdown (v13.0)
+우리는 프로젝트 운영 중 발생할 수 있는 보안 위협에 대응하여 시스템의 무결성을 한 단계 격상시켰습니다.
+* **Secrets Management**: 유출 위험이 있는 API 키를 코드에서 분리하여 `st.secrets` 표준 규격으로 이관했습니다.
+* **Environment Isolation**: `.gitignore` 및 GitHub Secrets를 활용하여 보안 민감 정보를 물리적으로 격리, 데이터 무결성을 보장합니다.
 
 ---
 
