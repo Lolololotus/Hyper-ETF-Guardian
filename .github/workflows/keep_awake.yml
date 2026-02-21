@@ -1,0 +1,15 @@
+name: Hyper Guardian Keep-Awake Protocol
+
+on:
+  schedule:
+    # 6시간마다 한 번씩 앱을 깨웁니다 (UTC 기준)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # 수동으로도 가동 가능하게 설정
+
+jobs:
+  ping_app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Survival Signal to Hyper Guardian
+        run: |
+          curl -I https://hyper-etf-guardian-kvkaanb3rkxwcisrmhxvn2.streamlit.app/
