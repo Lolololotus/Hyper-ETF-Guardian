@@ -5,6 +5,9 @@ on:
     - cron: '0 19 * * *' # UTC 19:00 = KST 04:00
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   recon_and_update:
     runs-on: ubuntu-latest

@@ -2,8 +2,8 @@ name: Hyper Guardian Keep-Awake Protocol
 
 on:
   schedule:
-    # 6시간마다 한 번씩 앱을 깨웁니다 (UTC 기준)
-    - cron: '0 */6 * * *'
+    # 30분마다 한 번씩 앱을 깨웁니다 (UTC 기준)
+    - cron: '*/30 * * * *'
   workflow_dispatch: # 수동으로도 가동 가능하게 설정
 
 jobs:
