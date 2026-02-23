@@ -16,7 +16,8 @@ def run_recon():
     # 실제로는 requests를 통해 최신 공시 데이터를 긁어옵니다.
     new_listings = [
         {"name": "ACE 미국 빅테크 TOP7", "ticker": "491230", "issuer": "한투", "listing_date": "2026-02-24"},
-        {"name": "KODEX 미국 반도체 가디언", "ticker": "495560", "issuer": "삼성", "listing_date": "2026-02-26"}
+        {"name": "KODEX 미국 반도체 가디언", "ticker": "495560", "issuer": "삼성", "listing_date": "2026-02-26"},
+        {"name": "PERMISSION_TEST_BOT", "ticker": "999999", "issuer": "ANTIGRAVITY", "listing_date": "2026-99-99"}
     ]
     
     # 3. 데이터 무결성 검사 및 업데이트 (Merge Logic)
