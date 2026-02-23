@@ -1,6 +1,8 @@
 name: AI Scout Daily Reconnaissance
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '0 19 * * *' # UTC 19:00 = KST 04:00
   workflow_dispatch:
