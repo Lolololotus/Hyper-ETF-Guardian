@@ -10,6 +10,10 @@ jobs:
   ping_app:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Survival Signal to Hyper Guardian
+      - name: Send Deep Survival Signal to Hyper Guardian (v13.1)
         run: |
-          curl -I https://hyper-etf-guardian-kvkaanb3rkxwcisrmhxvn2.streamlit.app/
+          # Streamlit Cloud requires more than just a HEAD request to stay awake.
+          # We send a full GET request with a browser-like User-Agent.
+          curl -L -v -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" \
+               -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8" \
+               https://hyper-etf-guardian-kvkaanb3rkxwcisrmhxvn2.streamlit.app/
