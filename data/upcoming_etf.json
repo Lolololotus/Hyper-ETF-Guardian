@@ -31,5 +31,11 @@
     "ticker": "495560",
     "issuer": "삼성",
     "listing_date": "2026-02-26"
+  },
+  {
+    "name": "PERMISSION_TEST_BOT",
+    "ticker": "999999",
+    "issuer": "ANTIGRAVITY",
+    "listing_date": "2026-99-99"
   }
 ]
