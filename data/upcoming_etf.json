@@ -1,32 +1,5 @@
 [
   {
-    "listing_date": "2026-02-20",
-    "name": "SOL 미국 국채 월배당(20년+)",
-    "issuer": "신한",
-    "ticker": "500350",
-    "theme": "금리 인하 수혜 + 현금흐름"
-  },
-  {
-    "listing_date": "2026-02-20",
-    "name": "ACE 글로벌 빅테크 TOP7",
-    "issuer": "한투",
-    "ticker": "500420",
-    "theme": "글로벌 초우량주 집중 투자"
-  },
-  {
-    "listing_date": "2026-02-24",
-    "name": "KBSTAR KRX 밸류업 지수",
-    "issuer": "KB",
-    "ticker": "500510",
-    "theme": "정부 정책 수혜 핵심주"
-  },
-  {
-    "name": "ACE 미국 빅테크 TOP7",
-    "ticker": "491230",
-    "issuer": "한투",
-    "listing_date": "2026-02-24"
-  },
-  {
     "name": "KODEX 미국 반도체 가디언",
     "ticker": "495560",
     "issuer": "삼성",

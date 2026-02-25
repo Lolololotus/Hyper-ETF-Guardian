@@ -28,12 +28,17 @@ def run_recon():
         except Exception as e:
             print(f"⚠️ Failed to read existing data: {e}")
     
-    # 중복 제거 (ticker 기준)
-    existing_tickers = {item['ticker'] for item in existing_data}
+    # [v13.7] 날짜 필터링: 오늘 이후의 상장 일정만 유지 (과거 데이터 자동 소멸)
+    # 봇(PERMISSION_TEST_BOT)과 같은 잘못된 데이터도 이 단계에서 자연스럽게 필터링됩니다.
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    filtered_data = [item for item in existing_data if item.get('listing_date', '0000-00-00') >= today_str]
+    
+    # 중복 제거 (ticker 기준) 및 오늘 이후 데이터 합치기
+    existing_tickers = {item['ticker'] for item in filtered_data}
     added_count = 0
     for item in new_listings:
-        if item['ticker'] not in existing_tickers:
-            existing_data.append(item)
+        if item['listing_date'] >= today_str and item['ticker'] not in existing_tickers:
+            filtered_data.append(item)
             added_count += 1
     
     # 디렉토리 생성 보장
@@ -41,7 +46,7 @@ def run_recon():
     
     # 파일 쓰기
     with open(target_path, 'w', encoding='utf-8') as f:
-        json.dump(existing_data, f, indent=2, ensure_ascii=False)
+        json.dump(filtered_data, f, indent=2, ensure_ascii=False)
     
     print(f"🚨 Recon Complete: {added_count} new units identified ({len(existing_data)} total).")
 
