@@ -6,9 +6,27 @@
     "listing_date": "2026-02-26"
   },
   {
-    "name": "PERMISSION_TEST_BOT",
-    "ticker": "999999",
-    "issuer": "ANTIGRAVITY",
-    "listing_date": "2026-99-99"
+    "name": "HANARO K휴머노이드테마TOP10",
+    "ticker": "496100",
+    "issuer": "NH-Amundi",
+    "listing_date": "2026-02-26"
+  },
+  {
+    "name": "KODEX 차이나AI반도체TOP10",
+    "ticker": "496110",
+    "issuer": "삼성",
+    "listing_date": "2026-02-26"
+  },
+  {
+    "name": "RISE 삼성전자SK하이닉스채권혼합50",
+    "ticker": "496120",
+    "issuer": "KB",
+    "listing_date": "2026-02-26"
+  },
+  {
+    "name": "KODEX 금융채1~2년PLUS액티브",
+    "ticker": "496130",
+    "issuer": "삼성",
+    "listing_date": "2026-02-26"
   }
 ]
